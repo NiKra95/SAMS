@@ -1,0 +1,19 @@
+<app-authorize-view>
+    <ng-container notAuthorized>
+        <h2>Welcome to Staff Absence Management System</h2>
+        <br />
+        <br />
+        <br />
+        <div class="home-buttons">
+            <button mat-raised-button color="primary" routerLink="login">Login</button>
+            <h6>Or</h6>
+            <button mat-raised-button color="warn" routerLink="register-company">Register Company</button>
+        </div>
+    </ng-container>
+</app-authorize-view>
+
+<app-authorize-view>
+    <ng-container authorized>
+        <h2>Authorized user</h2>
+    </ng-container>
+</app-authorize-view>

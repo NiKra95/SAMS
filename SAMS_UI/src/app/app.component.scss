@@ -1,0 +1,81 @@
+$primary-color: #34568B;
+
+mat-toolbar {
+    background-color: $primary-color;
+    color: white;
+}
+
+mat-sidenav {
+    margin: 1rem;
+    width: 200px;
+    border-right: none;
+    background-color: $primary-color;
+    color: white;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+
+.content {
+    height: calc(100vh - 98px);
+    margin: 1rem;
+    margin-left: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background-color: whitesmoke;
+    color: #363945;
+    border-radius: 10px;
+    padding: 0 1rem;
+}
+
+.application-name {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: larger;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    // color: bisque;
+}
+
+.menu-button {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+    margin-top: 10px;
+
+    mat-icon {
+        margin-right: 8px;
+    }
+}
+
+.avatar {
+    margin-top: 16px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+
+.name {
+    margin-top: 8px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.designation {
+    margin-top: 2px;
+    font-size: 0.75rem;
+    color: lightgray;
+}
+
+mat-divider {
+    margin-top: 16px;
+    margin-bottom: 16px;
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.logout-button {
+    margin-top: 15px;
+}
