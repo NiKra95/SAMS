@@ -10,7 +10,7 @@ namespace SAMS_WebAPI.Entities
 
         public ApplicationUser ApplicationUser { get; set; }
 
-        public Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
 
         public Company Company { get; set; }
 

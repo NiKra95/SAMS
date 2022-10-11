@@ -1,6 +1,6 @@
 ﻿namespace SAMS_WebAPI.DTOs
 {
-    public class LoginResult
+    public class AuthenticationResponse
     {
         /// <summary>
         /// TRUE if the login attempt is successful, FALSE otherwise.

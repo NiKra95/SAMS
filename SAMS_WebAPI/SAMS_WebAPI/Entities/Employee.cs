@@ -13,14 +13,16 @@ namespace SAMS_WebAPI.Entities
         [Required(ErrorMessage = "Designation is a required.")]
         public string Designation { get; set; }
 
-        [Required(ErrorMessage = "Experience in Company is a required.")]
+        [Required(ErrorMessage = "StartWorkingDate is a required.")]
+        public DateTime StartWorkingDate { get; set; }
+
         public int ExperienceInCompany { get; set; }
 
         public int MaximumAnnualLeave  { get; set; }
 
-        public int RemaingingAnnualLeave { get; set; }
+        public int RemainingAnnualLeave { get; set; }
 
-        public Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
 
         public Company Company { get; set; }
 

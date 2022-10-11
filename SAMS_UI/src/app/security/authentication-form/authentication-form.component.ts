@@ -15,7 +15,7 @@ export class AuthenticationFormComponent implements OnInit {
   public showPassword: boolean = false;
 
   @Input()
-  action: string = "Register";
+  action: string = "";
 
   @Output()
   onSubmit = new EventEmitter<LoginRequest>();

@@ -1,29 +1,60 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SAMS_WebAPI.DTOs;
+using SAMS_WebAPI.Entities;
+using SAMS_WebAPI.Helpers;
 
 namespace SAMS_WebAPI.Controllers
 {
+    [Route("api/companies")]
+    [ApiController]
     public class CompaniesController: ControllerBase
     {
+        private readonly ApplicationDbContext context;
+        private readonly IMapper mapper;
+        private readonly IFileStorageService fileStorageService;
+        private readonly UserManager<ApplicationUser> userManager;
+        private  string containerName = "companies";
 
-        [HttpPost("register-company")]
-        public async Task<ActionResult> Create(
-            [FromBody] CompanyCreationDTO companyCreationDTO)
+        public CompaniesController(ApplicationDbContext context, IMapper mapper,
+            IFileStorageService fileStorageService,
+            UserManager<ApplicationUser> userManager)
         {
-            //var user = new IdentityUser { UserName = userCredentials.Email, Email = userCredentials.Email };
-            //var result = await userManager.CreateAsync(user, userCredentials.Password);
+            this.context = context;
+            this.mapper = mapper;
+            this.fileStorageService = fileStorageService;
+            this.userManager = userManager;
+        }
 
-            //if (result.Succeeded)
-            //{
-            //    return await BuildToken(userCredentials);
-            //}
-            //else
-            //{
-            //    return BadRequest(result.Errors);
-            //}
+        [HttpPost]
+        public async Task<ActionResult<int>> Create(
+            [FromForm] CompanyCreationDTO companyCreationDTO)
+        {
+            try
+            {
+                //Company existingCompany = await context.Companies.FirstOrDefaultAsync(x => x.Name == companyCreationDTO.Name);
+                if (await context.Companies.FirstOrDefaultAsync(x => x.Name == companyCreationDTO.Name) != null)
+                    throw new Exception("The name of the company is already used.");
 
-            return NoContent();
+                var company = mapper.Map<Company>(companyCreationDTO);
+
+                if(companyCreationDTO.Logo != null)
+                {
+                    company.Logo = await fileStorageService.SaveFile(containerName, companyCreationDTO.Logo);
+                }
+
+                context.Add(company);
+                await context.SaveChangesAsync();
+
+                return company.Id;
+
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

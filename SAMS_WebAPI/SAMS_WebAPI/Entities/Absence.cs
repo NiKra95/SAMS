@@ -4,7 +4,7 @@ namespace SAMS_WebAPI.Entities
 {
     public class Absence
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string EmployeeId { get; set; }
 
         public Employee Employee { get; set; }
@@ -15,7 +15,7 @@ namespace SAMS_WebAPI.Entities
 
         public DateTime EndDate { get; set; }
 
-        public int DurationInDay { get; set; }   
+        public int DurationInDays { get; set; }   
 
         public bool IsApproved { get; set; }
 

@@ -15,6 +15,9 @@ export class InputImgComponent implements OnInit {
   @Input()
   urlCurrentImage!: string | null;
 
+  @Input()
+  buttonText: string;
+
   @Output()
   onImageSelected = new EventEmitter<File>();
 

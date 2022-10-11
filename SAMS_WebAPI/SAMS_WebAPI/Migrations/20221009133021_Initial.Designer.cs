@@ -12,7 +12,7 @@ using SAMS_WebAPI;
 namespace SAMS_WebAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220927192105_Initial")]
+    [Migration("20221009133021_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

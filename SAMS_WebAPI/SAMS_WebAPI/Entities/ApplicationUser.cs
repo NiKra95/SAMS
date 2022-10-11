@@ -7,7 +7,7 @@ namespace SAMS_WebAPI.Entities
     public class ApplicationUser : IdentityUser
     {
 
-        [Required(ErrorMessage = "First name is a required field.")]
+        [Required(ErrorMessage = "First name is a required.")]
         [StringLength(50)]
         [FirstLetterUppercase]
         public string FirstName { get; set; }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { parseWebAPIErrors } from 'src/app/utilites/utils';
-import { LoginRequest, LoginResult } from '../security.model';
+import { LoginRequest, AuthenticationResult } from '../security.model';
 import { SecurityService } from '../security.service';
 
 @Component({
@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
     private router: Router) { }
 
     errors: string[] = [];
-    // loginResult?: LoginResult;
 
   ngOnInit(): void {
     if(this.securityService.isAuthenticated()){
@@ -34,4 +33,5 @@ export class LoginComponent implements OnInit {
       this.errors = parseWebAPIErrors(error);
     });
   }
+
 }

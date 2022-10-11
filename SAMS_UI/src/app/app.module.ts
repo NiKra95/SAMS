@@ -31,6 +31,7 @@ import { InputImgComponent } from './utilites/input-img/input-img.component';
 import { AuthenticationFormComponent } from './security/authentication-form/authentication-form.component';
 import {JwtInterceptorService} from './security/jwt-interceptor.service';
 import { RegisterCompanyComponent } from './security/register-company/register-company.component';
+import { RegisterCompanyFormComponent } from './security/register-company-form/register-company-form.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { RegisterCompanyComponent } from './security/register-company/register-c
     GenericListComponent,
     InputImgComponent,
     AuthenticationFormComponent,
-    RegisterCompanyComponent
+    RegisterCompanyComponent,
+    RegisterCompanyFormComponent
   ],
   imports: [
     BrowserModule,

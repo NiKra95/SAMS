@@ -1,7 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Gender, LoginRequest } from '../security.model';
+import { CompanyCreationDTO } from 'src/app/companies/company.model';
+import { CompanyService } from 'src/app/companies/company.service';
+import { Gender } from 'src/app/users/users.model';
+import { parseWebAPIErrors } from 'src/app/utilites/utils';
+import { CompanyAdminCreationDTO, CompanyAdminDTO, RegistrationRequest } from '../registration.model';
+import { LoginRequest } from '../security.model';
 import { SecurityService } from '../security.service';
 
 @Component({
@@ -11,80 +16,54 @@ import { SecurityService } from '../security.service';
 })
 export class RegisterCompanyComponent implements OnInit {
 
-  constructor(private securityService: SecurityService,
-    private router: Router,
-    private formBuilder: FormBuilder) { }
+    constructor(private securityService: SecurityService,
+                private companyService: CompanyService,
+                private router: Router) { }
 
-  errors: string[] = [];
+    errors: string[] = [];
 
-  genders: Gender[] = [
-    {value: '0', viewValue: 'Unknown'},
-    {value: '1', viewValue: 'Male'},
-    {value: '2', viewValue: 'Female'},
-  ];
+    companyAdmin: CompanyAdminCreationDTO;
+    company: CompanyCreationDTO;
+    
 
-  form!: FormGroup;
-  public showPassword: boolean = false;
-
-  @Input()
-  action: string = "Registration";
-
-
-  ngOnInit(): void {
-    this.form = this.formBuilder.group({
-      //CompanyAdmin Info
-      firstName: ['', {
-        validators: [Validators.required, Validators.email]
-      }],
-      email: ['', {
-        validators: [Validators.required]
-      }],
-      lastName: ['', {
-        validators: [Validators.required]
-      }],
-      password: ['', {
-        validators: [Validators.required]
-      }],
-      gender: ['', {
-        validators: [Validators.required]
-      }],
-      dateOfBirth: '',
-
-      //Company Info
-      companyName: ['', {
-        validators: [Validators.required]
-      }],
-      companyAddress: ['', {
-        validators: [Validators.required]
-      }]
-    });
-  }
-
-  onImageSelected(image){
-    this.form.get('picture').setValue(image);
-  }
-
-  register(userCredentials: LoginRequest)  {
-    this.errors = [];
-  }
-
-  public togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  getEmailErrorMessage() {
-    var field = this.form.get('email');
-
-    if(field.hasError('required')){
-      return "The email field is required";
+    ngOnInit(): void {
+      if(this.securityService.isAuthenticated()){
+        this.router.navigate(['/home']);
+      }
     }
 
-    if(field.hasError('email')){
-      return "The email is invalid";
+    register(registrationRequest: RegistrationRequest) {
+      this.company = { 
+         name: registrationRequest.companyName,
+         address: registrationRequest.companyAddress,
+         country: registrationRequest.companyCountry,
+         website: registrationRequest.companyWebsite,
+         logo: registrationRequest.logo
+      };
+
+      this.companyService.create(this.company).subscribe(id => {
+        var companyId = id;
+    
+        this.companyAdmin = {
+          firstName: registrationRequest.firstName,
+          lastName: registrationRequest.lastName,
+          email: registrationRequest.email,
+          password: registrationRequest.password,
+          gender: registrationRequest.gender,
+          dateOfBirth: registrationRequest.dateOfBirth,
+          companyId: companyId
+        }
+
+        this.securityService.registerCompanyAdmin(this.companyAdmin).subscribe(registrationResult => {
+          if(registrationResult.success && registrationResult.token) {
+            this.securityService.saveToken(registrationResult);
+          }
+          this.router.navigate(['/']);
+        },  error => {
+          this.errors = parseWebAPIErrors(error);
+        }); 
+      },  error => {
+        this.errors = parseWebAPIErrors(error);
+      });
     }
-
-    return '';
-  }
-
-
 }

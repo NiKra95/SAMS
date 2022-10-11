@@ -157,14 +157,16 @@ namespace SAMS_WebAPI.Migrations
 
             modelBuilder.Entity("SAMS_WebAPI.Entities.Absence", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AbsenceType")
                         .HasColumnType("int");
 
-                    b.Property<int>("DurationInDay")
+                    b.Property<int>("DurationInDays")
                         .HasColumnType("int");
 
                     b.Property<string>("EmployeeId")
@@ -277,10 +279,11 @@ namespace SAMS_WebAPI.Migrations
 
             modelBuilder.Entity("SAMS_WebAPI.Entities.Company", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("CompanyId");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -289,7 +292,8 @@ namespace SAMS_WebAPI.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Logo")
                         .IsRequired()
@@ -314,8 +318,8 @@ namespace SAMS_WebAPI.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -329,8 +333,8 @@ namespace SAMS_WebAPI.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Designation")
                         .IsRequired()
@@ -342,8 +346,11 @@ namespace SAMS_WebAPI.Migrations
                     b.Property<int>("MaximumAnnualLeave")
                         .HasColumnType("int");
 
-                    b.Property<int>("RemaingingAnnualLeave")
+                    b.Property<int>("RemainingAnnualLeave")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("StartWorkingDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

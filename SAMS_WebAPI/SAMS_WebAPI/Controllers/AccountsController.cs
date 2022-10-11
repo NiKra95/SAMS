@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Authorization;
 using SAMS_WebAPI.DTOs;
 using SAMS_WebAPI.Helpers;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace SAMS_WebAPI.Controllers
 {
@@ -37,7 +39,7 @@ namespace SAMS_WebAPI.Controllers
 
 
         [HttpPost("login")]
-        public async Task<ActionResult<LoginResult>> Login(
+        public async Task<ActionResult<AuthenticationResponse>> Login(
             [FromBody] LoginRequest loginRequest)
         {
 
@@ -54,13 +56,72 @@ namespace SAMS_WebAPI.Controllers
             var secToken = await jwtHandler.GetTokenAsync(user);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
-            return Ok(new LoginResult()
+            return Ok(new AuthenticationResponse()
             {
                 Success = true,
                 Message = "Login successful",
                 Token = jwt,
                 Expiration = secToken.ValidTo
             });
+        }
+
+        [HttpPost("registerCompanyAdmin")]
+        public async Task<ActionResult<AuthenticationResponse>> RegisterCompanyAdmin(
+            [FromForm] CompanyAdminCreationDTO companyAdminCreationDTO)
+        {
+            try
+            {
+
+                if (companyAdminCreationDTO == null)
+                    return BadRequest("Incorrect Login");
+
+                if (await userManager.FindByEmailAsync(companyAdminCreationDTO.Email.ToLower()) != null)
+                    throw new Exception("A user with that email already exists.");
+
+                ApplicationUser user = new ApplicationUser
+                {
+                    FirstName = companyAdminCreationDTO.FirstName,
+                    LastName = companyAdminCreationDTO.LastName,
+                    UserName = companyAdminCreationDTO.Email,
+                    Email = companyAdminCreationDTO.Email,
+                    Gender = companyAdminCreationDTO.Gender,
+                    DateofBirth = companyAdminCreationDTO.DateOfBirth
+                };
+                var result = await userManager.CreateAsync(user, companyAdminCreationDTO.Password);
+
+                CompanyAdmin companyAdmin = new CompanyAdmin()
+                {
+                    Id = user.Id,
+                    CompanyId = companyAdminCreationDTO.CompanyId
+                };
+
+                context.Add(companyAdmin);
+                await context.SaveChangesAsync();
+
+                user = await userManager.FindByIdAsync(companyAdmin.Id);
+                await userManager.AddClaimAsync(user, new Claim("role", "companyAdmin"));
+
+
+                var secToken = await jwtHandler.GetTokenAsync(user);
+
+                var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+
+                return Ok(new AuthenticationResponse()
+                {
+                    Success = true,
+                    Message = "Registration successful",
+                    Token = jwt,
+                    Expiration = secToken.ValidTo
+                });
+            }
+            catch(Exception e)
+            {
+                Company? company = await context.Companies.FirstOrDefaultAsync(x => x.Id == companyAdminCreationDTO.CompanyId);
+                context.Companies.Remove(company);
+                await context.SaveChangesAsync();
+                return BadRequest(e.Message);
+            }
+
         }
     }
 

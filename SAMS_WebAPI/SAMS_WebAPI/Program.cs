@@ -40,10 +40,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequireLowercase = true;
-    options.Password.RequireUppercase = true;
-    //options.Password.RequireDigit = true;
-    //options.Password.RequireNonAlphanumeric = true;
-    //options.Password.RequiredLength = 8;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 8;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddAuthentication(opt =>

@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { LoginRequest, LoginResult, userDTO } from './security.model';
+import { formatDateFormData } from '../utilites/utils';
+import { CompanyAdminCreationDTO, RegistrationRequest, RegistrationResponse } from './registration.model';
+import { LoginRequest, AuthenticationResult, userDTO } from './security.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +17,6 @@ export class SecurityService {
   private readonly tokenKey: string = 'token';
   private readonly expirationTokenKey: string = 'token-expiration';
   private readonly roleField = "role";
-
-  // public tokenKey: string = "token";
 
   
   getToken() : string | null {
@@ -52,9 +52,9 @@ export class SecurityService {
     return true;
   }
   
-  login(loginRequest: LoginRequest): Observable<LoginResult> {
+  login(loginRequest: LoginRequest): Observable<AuthenticationResult> {
     var url = this.apiURL + "/login";
-    return this.http.post<LoginResult>(url, loginRequest);
+    return this.http.post<AuthenticationResult>(url, loginRequest);
   }
 
   logout(){
@@ -62,9 +62,29 @@ export class SecurityService {
     localStorage.removeItem(this.expirationTokenKey);
   }
 
-  saveToken(loginResult: LoginResult){
+  saveToken(loginResult: AuthenticationResult){
     localStorage.setItem(this.tokenKey, loginResult.token);
     localStorage.setItem(this.expirationTokenKey, loginResult.expiration.toString());
+  }
+
+  registerCompanyAdmin(companyAdmin: CompanyAdminCreationDTO): Observable<AuthenticationResult>{
+    const formData: FormData = this.convertCompanyAdminToFormData(companyAdmin);
+    return this.http.post<RegistrationResponse>(`${this.apiURL}/registerCompanyAdmin`, formData);
+  };
+
+  private convertCompanyAdminToFormData(companyAdmin: CompanyAdminCreationDTO): FormData {
+    const formData = new FormData();
+
+    formData.append('firstName', companyAdmin.firstName);
+    formData.append('lastName', companyAdmin.lastName);
+    formData.append('email', companyAdmin.email);
+    formData.append('password', companyAdmin.password);
+    formData.append('gender', companyAdmin.gender);
+    formData.append('dateOfBirth', formatDateFormData(companyAdmin.dateOfBirth));
+    formData.append('companyId', companyAdmin.companyId.toString());
+
+    return formData;
+
   }
   
 

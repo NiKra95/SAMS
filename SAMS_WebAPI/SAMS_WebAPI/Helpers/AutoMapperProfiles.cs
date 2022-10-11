@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using SAMS_WebAPI.DTOs;
+using SAMS_WebAPI.Entities;
 
 namespace SAMS_WebAPI.Helpers
 {
@@ -6,6 +8,8 @@ namespace SAMS_WebAPI.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<CompanyCreationDTO, Company>().ReverseMap();
+            CreateMap<CompanyAdminCreationDTO, CompanyAdmin>().ReverseMap();
         }
     }
 }

@@ -3,7 +3,7 @@ export interface LoginRequest {
     password: string;
 }
 
-export interface LoginResult {
+export interface AuthenticationResult {
     success: boolean,
     message: string,
     token: string;
@@ -13,15 +13,4 @@ export interface LoginResult {
 export interface userDTO {
     id: string;
     email: string;
-}
-
-
-export interface RegistrationRequest {
-    email: string;
-    password: string;
-}
-
-export interface Gender {
-    value: string;
-    viewValue: string;
 }
