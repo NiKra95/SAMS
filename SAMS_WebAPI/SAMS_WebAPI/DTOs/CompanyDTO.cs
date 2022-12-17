@@ -13,5 +13,13 @@
         public string Website { get; set; }
 
         public string Logo { get; set; }
+
+        public DateTime CreationDate { get; set; }
+
+        public int NumberOfEmployees { get; set; }
+
+        public int NumberOfAdmins { get; set; }
+
+        public bool Allowed { get; set; }
     }
 }

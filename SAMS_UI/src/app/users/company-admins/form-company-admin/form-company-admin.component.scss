@@ -1,0 +1,18 @@
+form {
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+mat-form-field {
+    width: 48%;
+    margin: 1rem;
+}
+
+.buttons {
+    float: right;
+    margin-right: 1.5rem;
+
+    button {
+        margin-right: 0.5rem;
+    }
+}

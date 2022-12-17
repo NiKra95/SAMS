@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CompanyAdminCreationDTO } from '../users/users.model';
 import { formatDateFormData } from '../utilites/utils';
-import { CompanyAdminCreationDTO, RegistrationRequest, RegistrationResponse } from './registration.model';
+import { RegistrationRequest, RegistrationResponse } from './registration.model';
 import { LoginRequest, AuthenticationResult, userDTO } from './security.model';
 
 @Injectable({
@@ -11,12 +13,12 @@ import { LoginRequest, AuthenticationResult, userDTO } from './security.model';
 })
 export class SecurityService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
   private apiURL = environment.apiURL + "/accounts";
   private readonly tokenKey: string = 'token';
   private readonly expirationTokenKey: string = 'token-expiration';
-  private readonly roleField = "role";
 
   
   getToken() : string | null {
@@ -30,8 +32,21 @@ export class SecurityService {
     return dataToken[field];
   }
   
+  getUserID() {
+    return this.getFieldFromJWT('userID');
+  }
+
   getRole() {
-    return this.getFieldFromJWT(this.roleField);
+    return this.getFieldFromJWT("userRole");
+  }
+
+
+  getCompanyID() {
+    return this.getFieldFromJWT('companyId');
+  }
+
+  IsCompanyCreator() {
+    return this.getFieldFromJWT('companyCreator');
   }
   
   isAuthenticated() {
@@ -46,6 +61,7 @@ export class SecurityService {
 
     if(expirationDate <= new Date()){
       this.logout();
+      window.location.reload();
       return false;
     }
 
@@ -53,13 +69,14 @@ export class SecurityService {
   }
   
   login(loginRequest: LoginRequest): Observable<AuthenticationResult> {
-    var url = this.apiURL + "/login";
+    let url = this.apiURL + "/login";
     return this.http.post<AuthenticationResult>(url, loginRequest);
   }
 
   logout(){
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.expirationTokenKey);
+    this.router.navigate(["/home"]);
   }
 
   saveToken(loginResult: AuthenticationResult){
@@ -84,8 +101,5 @@ export class SecurityService {
     formData.append('companyId', companyAdmin.companyId.toString());
 
     return formData;
-
   }
-  
-
 }

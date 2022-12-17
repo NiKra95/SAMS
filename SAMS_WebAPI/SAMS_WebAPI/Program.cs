@@ -27,8 +27,8 @@ builder.Services.AddCors(options =>
     {
         builder.WithOrigins(frontendURL)
             .AllowAnyMethod()
-            .AllowAnyHeader();
-            //.WithExposedHeaders(new string[] { "totalAmountOfRecords" });
+            .AllowAnyHeader()
+            .WithExposedHeaders(new string[] { "totalAmountOfRecords" });
     });
 });
 
@@ -62,7 +62,7 @@ builder.Services.AddAuthentication(opt =>
         ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
         ValidAudience = builder.Configuration["JwtSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.
-    GetBytes(builder.Configuration["JwtSettings:SecurityKey"]))
+            GetBytes(builder.Configuration["JwtSettings:SecurityKey"]))
     };
 });
 
@@ -82,11 +82,14 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SAMS_API v1"));
 }
 
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();   
+
+app.UseRouting();
 
 app.UseCors();
 
@@ -95,5 +98,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

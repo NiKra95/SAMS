@@ -1,0 +1,38 @@
+<form [formGroup]="formData">
+    <div class="userPicture">
+        <app-input-img
+            [urlCurrentImage]="picturePath">   
+        </app-input-img>
+    </div>
+
+    <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input formControlName="firstName" matInput readonly="true" />
+        <mat-error>First name is a required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input formControlName="lastName" matInput readonly="true" />
+        <mat-error>Last name is a required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput readonly="true" />
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Gender</mat-label>
+        <input formControlName="gender" matInput readonly="true" />
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input formControlName="dateOfBirth" matInput readonly="true" />
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+        <button style="margin: auto;" class="mat-raised-button"(click)="close()">Close</button>
+    </div>
+</form>

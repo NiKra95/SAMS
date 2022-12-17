@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyCreationDTO } from 'src/app/companies/company.model';
 import { CompanyService } from 'src/app/companies/company.service';
-import { Gender } from 'src/app/users/users.model';
+import { CompanyAdminCreationDTO, Gender } from 'src/app/users/users.model';
 import { parseWebAPIErrors } from 'src/app/utilites/utils';
-import { CompanyAdminCreationDTO, CompanyAdminDTO, RegistrationRequest } from '../registration.model';
+import { RegistrationRequest } from '../registration.model';
 import { LoginRequest } from '../security.model';
 import { SecurityService } from '../security.service';
+
 
 @Component({
   selector: 'app-register-company',
@@ -24,7 +25,6 @@ export class RegisterCompanyComponent implements OnInit {
 
     companyAdmin: CompanyAdminCreationDTO;
     company: CompanyCreationDTO;
-    
 
     ngOnInit(): void {
       if(this.securityService.isAuthenticated()){
@@ -38,7 +38,8 @@ export class RegisterCompanyComponent implements OnInit {
          address: registrationRequest.companyAddress,
          country: registrationRequest.companyCountry,
          website: registrationRequest.companyWebsite,
-         logo: registrationRequest.logo
+         logo: registrationRequest.logo,
+         creationDate: new Date()
       };
 
       this.companyService.create(this.company).subscribe(id => {
@@ -57,6 +58,7 @@ export class RegisterCompanyComponent implements OnInit {
         this.securityService.registerCompanyAdmin(this.companyAdmin).subscribe(registrationResult => {
           if(registrationResult.success && registrationResult.token) {
             this.securityService.saveToken(registrationResult);
+            window.location.reload();
           }
           this.router.navigate(['/']);
         },  error => {

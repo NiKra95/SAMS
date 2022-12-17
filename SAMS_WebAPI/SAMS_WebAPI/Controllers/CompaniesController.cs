@@ -28,13 +28,27 @@ namespace SAMS_WebAPI.Controllers
             this.userManager = userManager;
         }
 
-        [HttpPost]
-        public async Task<ActionResult<int>> Create(
-            [FromForm] CompanyCreationDTO companyCreationDTO)
+        [HttpGet]
+        public async Task<ActionResult<List<CompanyDTO>>> Get([FromQuery] PaginationDTO paginationDTO)
         {
             try
             {
-                //Company existingCompany = await context.Companies.FirstOrDefaultAsync(x => x.Name == companyCreationDTO.Name);
+                var queryable = context.Companies.AsQueryable();
+                await HttpContext.InsertParametersPaginationInHeader(queryable);
+                var companies = await queryable.OrderByDescending(x => x.CreationDate).Paginate(paginationDTO).ToListAsync();
+                return mapper.Map<List<CompanyDTO>>(companies);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<int>> Create([FromForm] CompanyCreationDTO companyCreationDTO)
+        {
+            try
+            {
                 if (await context.Companies.FirstOrDefaultAsync(x => x.Name == companyCreationDTO.Name) != null)
                     throw new Exception("The name of the company is already used.");
 
@@ -44,6 +58,8 @@ namespace SAMS_WebAPI.Controllers
                 {
                     company.Logo = await fileStorageService.SaveFile(containerName, companyCreationDTO.Logo);
                 }
+
+                company.NumberOfAdmins = 1;
 
                 context.Add(company);
                 await context.SaveChangesAsync();

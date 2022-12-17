@@ -1,0 +1,40 @@
+<form [formGroup]="formData">
+    <h1 class="employeeFullName">{{fullName}}</h1>
+    <h4 class="employeeEmail">{{email}}</h4>
+
+
+    <!-- <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input formControlName="fullName" matInput readonly="true" />
+    </mat-form-field> -->
+
+    <!-- <mat-form-field  appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput readonly="true" />
+    </mat-form-field> -->
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Start Working Date</mat-label>
+        <input formControlName="startWorkingDate" matInput readonly="true" />
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Designation</mat-label>
+        <input formControlName="designation" matInput />
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Years of Experience in Company</mat-label>
+        <input type="number" formControlName="experienceInCompany" matInput />
+    </mat-form-field>
+    
+    <mat-form-field  appearance="outline">
+        <mat-label>Maximum Annual Leave</mat-label>
+        <input type="number" formControlName="maximumAnnualLeave" matInput />
+    </mat-form-field>
+
+    <div class="dialog-buttons" mat-dialog-actions>
+        <button mat-flat-button color="primary" [disabled]="formData.invalid" (click)="saveChanges()">Save Changes</button>
+        <button mat-flat-button color="warn" (click)="close()">Close</button>
+    </div>
+</form>

@@ -1,0 +1,29 @@
+:host ::ng-deep {
+    position: absolute;
+    width: 98%;
+    top: 0;
+    left: 1rem;
+
+    table {
+        width: 100%;
+        // table-layout: fixed;
+
+        .mat-header-cell {
+            font-weight: bolder;
+            background-color: gainsboro;
+        }
+
+        td, th {
+            width: 25%;
+        }
+
+        .detail-cell {
+            text-align: center;
+    
+            a, button {
+                background-color: #09aeae;
+                color: white;
+            } 
+        }
+    }
+}

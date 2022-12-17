@@ -1,0 +1,19 @@
+mat-form-field{
+    margin-left: 0.7rem;
+    width: 48%;
+}
+
+.userPicture {
+    text-align: center;
+
+    app-input-img {
+        img {   
+            width: 200px;
+            height: 200px;
+        }
+    }
+}
+
+.dialog-buttons {
+    justify-content: center;
+}

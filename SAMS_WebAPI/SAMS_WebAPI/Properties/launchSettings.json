@@ -3,6 +3,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/SAMS_API",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:58346",
       "sslPort": 44387

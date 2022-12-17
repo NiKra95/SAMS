@@ -42,27 +42,33 @@ namespace SAMS_WebAPI.Controllers
         public async Task<ActionResult<AuthenticationResponse>> Login(
             [FromBody] LoginRequest loginRequest)
         {
-
-            if(loginRequest == null)
-                return BadRequest("Incorrect Login");
-
-            var user = await userManager.FindByNameAsync(loginRequest.Email);
-
-            if (user == null || !await userManager.CheckPasswordAsync(user, loginRequest.Password))
+            try 
             {
-                return Unauthorized("Invalid Email or Password.");
+                if(loginRequest == null)
+                    return BadRequest("Incorrect Login");
+
+                var user = await userManager.FindByNameAsync(loginRequest.Email);
+
+                if (user == null || !await userManager.CheckPasswordAsync(user, loginRequest.Password))
+                {
+                    throw new Exception("Invalid Email or Password.");
+                }
+
+                var secToken = await jwtHandler.GetTokenAsync(user);
+
+                var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
+                return Ok(new AuthenticationResponse()
+                {
+                    Success = true,
+                    Message = "Login successful",
+                    Token = jwt,
+                    Expiration = secToken.ValidTo
+                });
             }
-
-            var secToken = await jwtHandler.GetTokenAsync(user);
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(secToken);
-            return Ok(new AuthenticationResponse()
+            catch(Exception e)
             {
-                Success = true,
-                Message = "Login successful",
-                Token = jwt,
-                Expiration = secToken.ValidTo
-            });
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost("registerCompanyAdmin")]
@@ -71,7 +77,6 @@ namespace SAMS_WebAPI.Controllers
         {
             try
             {
-
                 if (companyAdminCreationDTO == null)
                     return BadRequest("Incorrect Login");
 
@@ -92,7 +97,8 @@ namespace SAMS_WebAPI.Controllers
                 CompanyAdmin companyAdmin = new CompanyAdmin()
                 {
                     Id = user.Id,
-                    CompanyId = companyAdminCreationDTO.CompanyId
+                    CompanyId = companyAdminCreationDTO.CompanyId,
+                    CompanyCreator = true
                 };
 
                 context.Add(companyAdmin);

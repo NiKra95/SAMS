@@ -1,0 +1,39 @@
+:host ::ng-deep {
+    position: absolute;
+    width: 98%;
+    top: 0;
+    left: 1rem;   
+
+    .create-employee-button
+    {
+        float: right;
+        margin: 1rem;
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+
+        .mat-header-cell {
+            font-weight: bolder;
+            background-color: gainsboro;
+        }
+
+        .detail-cell {
+            text-align: center;
+
+            button {
+                color: white;
+                margin: 5px;
+            } 
+
+            .details-button {
+                background-color: #09aeae;
+            }
+
+            .edit-button {
+                background-color: green;
+            }
+        }
+    }
+}

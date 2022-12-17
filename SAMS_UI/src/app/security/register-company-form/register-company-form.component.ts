@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupName, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CompanyCreationDTO } from 'src/app/companies/company.model';
-import { Gender } from 'src/app/users/users.model';
-import {  CompanyAdminCreationDTO, RegistrationRequest } from '../registration.model';
+import { CompanyAdminCreationDTO, Gender } from 'src/app/users/users.model';
+import { RegistrationRequest } from '../registration.model';
 import { SecurityService } from '../security.service';
 
 @Component({
@@ -55,22 +55,6 @@ export class RegisterCompanyFormComponent implements OnInit {
         companyCountry: new FormControl('', Validators.required),
         companyWebsite: new FormControl(),
         logo: new FormControl()
-
-        // admin: new FormGroup({
-        //   firstName: new FormControl('', Validators.required),
-        //   lastName: new FormControl('', Validators.required),
-        //   email: new FormControl('', [Validators.required, Validators.email]),
-        //   password: new FormControl('', Validators.required),
-        //   gender: new FormControl('', Validators.required),
-        //   dateOfBirth: new FormControl('', Validators.required)
-        // }),
-        // comp: new FormGroup({
-        //   companyName: new FormControl('', Validators.required),
-        //   companyAddress: new FormControl('', Validators.required),
-        //   companyCountry: new FormControl('', Validators.required),
-        //   companyWebsite: new FormControl(),
-        //   logo: new FormControl()
-        // })
     })
   }
 

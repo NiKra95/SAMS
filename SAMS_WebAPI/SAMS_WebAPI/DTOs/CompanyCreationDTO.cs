@@ -19,6 +19,8 @@ namespace SAMS_WebAPI.DTOs
 
         public string Website { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
         public IFormFile Logo { get; set; }
     }
 }

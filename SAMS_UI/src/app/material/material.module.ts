@@ -11,6 +11,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select'
 import {MatDatepickerModule} from '@angular/material/datepicker'
 import {MatNativeDateModule} from '@angular/material/core'
+import {MatTableModule} from '@angular/material/table'
+import {MatPaginatorModule} from '@angular/material/paginator'
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import {MatSortModule} from '@angular/material/sort';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -28,7 +33,12 @@ import {MatNativeDateModule} from '@angular/material/core'
     MatCardModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatSortModule,
+    MatDialogModule
   ]
 })
 export class MaterialModule { }

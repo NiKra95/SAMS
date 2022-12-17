@@ -23,6 +23,14 @@ namespace SAMS_WebAPI.Entities
 
         public string Logo { get; set; }
 
+        public DateTime CreationDate { get; set; }
+
+        public int NumberOfEmployees { get; set; }
+
+        public int NumberOfAdmins { get; set; }
+
+        public bool Allowed { get; set; }
+
         public ICollection<CompanyAdmin> Admins { get; set; }
         
         public ICollection<Employee> Employees { get; set; }

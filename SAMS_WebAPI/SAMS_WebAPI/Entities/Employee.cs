@@ -27,5 +27,10 @@ namespace SAMS_WebAPI.Entities
         public Company Company { get; set; }
 
         public ICollection<Absence> Absences { get; set; }
+
+        public static implicit operator EventArgs?(Employee? v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

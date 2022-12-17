@@ -21,6 +21,7 @@ mat-sidenav {
     margin: 1rem;
     margin-left: 32px;
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
@@ -35,8 +36,27 @@ mat-sidenav {
     margin-right: auto;
     font-size: larger;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    // color: bisque;
 }
+
+.company-info {
+
+    display: flex;
+    
+    .company-logo {
+        width: 3.4rem;
+        height: 3.4rem;
+    }
+    
+    .company-name {
+        margin: auto;
+        margin-left: 1rem;
+        font-size: larger;
+        font-family: Times, Times New Roman, serif;
+        color: bisque;
+    }
+    
+}
+
 
 .menu-button {
     width: 100%;
@@ -78,4 +98,22 @@ mat-divider {
 
 .logout-button {
     margin-top: 15px;
+    margin-left: 5px;
+}
+
+.edit-profile-button {
+    padding-left: 0px;
+    padding-right: 5px;
+    border: 0;
+    color: white;
+    background-color: green;
+
+    mat-flat-button {
+        width: 2rem;
+        height: 2rem;
+    }
+
+    mat-icon {
+        font-size: 20px;
+    }
 }

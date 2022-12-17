@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
     this.securityService.login(loginRequest).subscribe(loginResult => {
       if(loginResult.success && loginResult.token) {
         this.securityService.saveToken(loginResult);
+        window.location.reload();
       }
       this.router.navigate(['/']);
     }, error => {

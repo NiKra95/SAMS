@@ -290,10 +290,16 @@ namespace SAMS_WebAPI.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
+                    b.Property<bool>("Allowed")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Country")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Logo")
                         .IsRequired()
@@ -303,6 +309,12 @@ namespace SAMS_WebAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
+
+                    b.Property<int>("NumberOfAdmins")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumberOfEmployees")
+                        .HasColumnType("int");
 
                     b.Property<string>("Website")
                         .IsRequired()
@@ -317,6 +329,9 @@ namespace SAMS_WebAPI.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("CompanyCreator")
+                        .HasColumnType("bit");
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");

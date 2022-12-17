@@ -1,0 +1,49 @@
+<h3>Employees</h3>
+
+<ng-container content>
+    <button mat-raised-button color="primary" class="create-employee-button" routerLink="/employees/create">Create Employee</button>
+    
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-index" matSort>
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef firstName>First Name</th>
+            <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef>Last Name</th>
+            <td mat-cell *matCellDef="let element">{{element.lastName}}</td>
+        </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef>E-mail</th>
+            <td mat-cell *matCellDef="let element">{{element.email}}</td>
+        </ng-container>
+        <ng-container matColumnDef="designation">
+            <th mat-header-cell *matHeaderCellDef>Designation</th>
+            <td mat-cell *matCellDef="let element">{{element.email}}</td>
+        </ng-container>
+        <ng-container matColumnDef="annualLeave">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Annual Leave (remaining / allowed)</th>
+            <td mat-cell *matCellDef="let element">
+                {{element.remainingAnnualLeave}} / {{element.maximumAnnualLeave}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+            <th mat-header-cell style="text-align: center;" *matHeaderCellDef>Actions</th> 
+            <td mat-cell *matCellDef="let element; let i = index" class="detail-cell">
+            <button mat-raised-button class="details-button" (click)="openDialog(i)">Details</button>
+            <button mat-raised-button class="edit-button" (click)="openEditSettingsDialog(i)">Edit</button>
+            <button mat-raised-button (click)="delete(element.id)" color="warn">
+                Delete
+            </button>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    </table>
+
+    <mat-spinner *ngIf="!dataSource"></mat-spinner> 
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
+        [length]="totalAmountOfRecords" [pageSize]="pageSize" (page)="updatePagination($event)" class="mat-elevation-z8">
+    </mat-paginator>
+</ng-container>

@@ -14,5 +14,6 @@ namespace SAMS_WebAPI.Entities
 
         public Company Company { get; set; }
 
+        public bool CompanyCreator { get; set; }
     }
 }

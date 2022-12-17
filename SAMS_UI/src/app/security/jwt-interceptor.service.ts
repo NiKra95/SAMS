@@ -9,9 +9,9 @@ import { SecurityService } from './security.service';
 })
 export class JwtInterceptorService implements HttpInterceptor {
 
-  constructor(private securityService: SecurityService,
+  constructor(private securityService: SecurityService, 
     private router: Router) { }
-
+ 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.securityService.getToken();
 

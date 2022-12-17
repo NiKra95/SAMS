@@ -1,0 +1,53 @@
+<form [formGroup]="formData">
+    <div class="userPicture">
+        <app-input-img [buttonText]="'Change Picture'"
+            [urlCurrentImage]="picturePath"
+            (onImageSelected)="onImageSelected($event)">   
+        </app-input-img>
+    </div>
+
+    <mat-form-field appearance="outline">
+        <mat-label>First Name</mat-label>
+        <input formControlName="firstName" matInput />
+        <mat-error>First name is a required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Last Name</mat-label>
+        <input formControlName="lastName" matInput />
+        <mat-error>Last name is a required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput readonly/>
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Address</mat-label>
+        <input formControlName="address" matInput/>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender" [(ngModel)]="selectedGender">
+            <mat-option *ngFor="let gender of genders; index as indexOfelement;" [value]="indexOfelement">
+            {{gender}}
+        </mat-option>
+        </mat-select> 
+        <mat-error>Gender is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth"/>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>Date of Birth is required</mat-error>
+    </mat-form-field>
+
+    <div class="dialog-buttons" mat-dialog-actions>
+        <button mat-flat-button color="primary" [disabled]="formData.invalid" (click)="saveChanges()">Save Changes</button>
+        <button mat-flat-button color="warn" (click)="close()">Close</button>
+    </div>
+</form>
