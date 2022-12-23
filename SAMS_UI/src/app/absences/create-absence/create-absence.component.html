@@ -1,0 +1,35 @@
+<h3 class="title">New Absence</h3>
+
+<form [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Absence Type</mat-label>
+        <mat-select formControlName="absenceType" [(value)]="selectedAbsenceType">
+            <mat-option *ngFor="let absenceType of absenceTypes; index as indexOfelement;" [value]="indexOfelement">
+            {{absenceType}}
+            </mat-option>
+        </mat-select> 
+        <mat-error>Absence type is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Absence Period</mat-label>
+        <mat-date-range-input [min]="currentDate" [rangePicker]="picker">
+            <input formControlName="startDate" matStartDate matInput placeholder="Start Date" />
+            <input formControlName="endDate" matEndDate matInput placeholder="End Date" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <!-- <input formControlName="description" matInput /> -->
+        <textarea formControlName="description" matInput></textarea>
+    </mat-form-field>
+
+    <div class="dialog-buttons" mat-dialog-actions>
+        <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="saveChanges()">Apply</button>
+        <button mat-flat-button color="warn" (click)="close()">Close</button>
+    </div>
+
+</form>

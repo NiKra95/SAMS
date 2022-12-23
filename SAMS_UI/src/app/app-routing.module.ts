@@ -21,6 +21,7 @@ import { CreateAppAdminsComponent } from './users/application-admins/create-app-
 import { IsAdminGuard } from './security/route-guards/is-admin.guard';
 import { CreateCompanyAdminComponent } from './users/company-admins/create-company-admin/create-company-admin.component';
 import { CreateEmployeeComponent } from './users/employees/create-employee/create-employee.component';
+import { CreateAbsenceComponent } from './absences/create-absence/create-absence.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,8 @@ const routes: Routes = [
   {path: 'settings', component: SettingsComponent, canActivate: [IsApplicationAdminGuard, IsCompanyAdminGuard]},
   {path: 'employees', component: IndexEmployeesComponent, canActivate: [IsCompanyAdminGuard]},
   {path: 'employees/create', component: CreateEmployeeComponent, canActivate: [IsCompanyAdminGuard]},
-  {path: 'absences', component: IndexAbsencesComponent, canActivate: [IsCompanyAdminGuard, IsEmployeeGuard]},
+  {path: 'absences', component: IndexAbsencesComponent, canActivate: [IsEmployeeGuard]},
+  {path: 'absences/create', component: CreateAbsenceComponent, canActivate: [IsEmployeeGuard]},
   {path: 'calendar', component: CalendarComponent, canActivate: [IsCompanyAdminGuard, IsEmployeeGuard]},
 
   {path: 'about', component: AboutComponent},

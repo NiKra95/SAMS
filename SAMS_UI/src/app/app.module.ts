@@ -49,6 +49,8 @@ import { FormEmployeeComponent } from './users/employees/form-employee/form-empl
 import { EditEmployeeComponent } from './users/employees/edit-employee/edit-employee.component';
 import { EmployeeDetailsComponent } from './users/employees/employee-details/employee-details.component';
 import { EditUserDetailsComponent } from './users/common/edit-user-details/edit-user-details.component';
+import { CreateAbsenceComponent } from './absences/create-absence/create-absence.component';
+import { FormAbsenceComponent } from './absences/form-absence/form-absence.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +90,9 @@ import { EditUserDetailsComponent } from './users/common/edit-user-details/edit-
     FormEmployeeComponent,
     EditEmployeeComponent,
     EmployeeDetailsComponent,
-    EditUserDetailsComponent
+    EditUserDetailsComponent,
+    CreateAbsenceComponent,
+    FormAbsenceComponent
   ],
   imports: [
     BrowserModule,

@@ -73,6 +73,14 @@ namespace SAMS_WebAPI.Helpers
                .ForMember(x => x.DateofBirth, options => options.MapFrom(prop => prop.ApplicationUser.DateofBirth))
                .ForMember(x => x.Picture, options => options.MapFrom(prop => prop.ApplicationUser.Picture));
 
+            CreateMap<AbsenceCreationDTO, Absence>().ReverseMap();
+
+            CreateMap<AbsenceDTO, Absence>().ReverseMap();
+
+            //CreateMap<Absence, AbsenceDTO>()
+            //   .ForMember(x => x.abs, options => options.MapFrom(prop => ))
+
+
         }
     }
 }

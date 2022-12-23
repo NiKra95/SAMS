@@ -17,7 +17,9 @@ namespace SAMS_WebAPI.Entities
 
         public int DurationInDays { get; set; }   
 
-        public bool IsApproved { get; set; }
+        public string Description { get; set; }
+
+        public AbsenceStatus AbsenceStatus { get; set; }
 
     }
 }

@@ -1,0 +1,46 @@
+:host ::ng-deep {
+    position: absolute;
+    width: 98%;
+    top: 0;
+    left: 1rem;
+
+    .new-absence-button
+    {
+        float: right;
+        // background-color: green;
+        margin: 1rem;
+    }
+
+    @mixin absenceStatusStyle($bgColor: orange) {
+        background-color: $bgColor;
+        color: white;
+        padding: 0.3rem;
+        border-radius: 15px;
+        // font-size: initial;
+        // width: fit-content;
+        width: 4rem;
+        text-align: center;
+    }
+    
+    .pending-style {
+        @include absenceStatusStyle;
+    }
+
+    .approved-style {
+        @include absenceStatusStyle($bgColor: green);
+    }
+
+    .denied-style {
+        @include absenceStatusStyle($bgColor: red);
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+
+        .mat-header-cell {
+            font-weight: bolder;
+            background-color: gainsboro;
+        }
+    }
+}
