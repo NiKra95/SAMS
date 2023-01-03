@@ -55,7 +55,6 @@ export class UsersService {
 
   editUserDetails(id: string, userDetails: EditUserDetailsDTO) {
     const formData = this.buildFormDataForUserDetails(userDetails);
-    console.log(Array.from(formData));
     return this.http.put(`${this.apiURL}/editUserDetails/${id}`, formData);
   }
 
@@ -122,7 +121,6 @@ export class UsersService {
   //Company Admin methods
   createCompanyAdmin(companyAdmin: CompanyAdminCreationDTO) {
     const formData = this.buildFormDataForCompanyAdmin(companyAdmin, 'create');
-    console.log(Array.from(formData));
     return this.http.post(`${this.apiURL}/createCompanyAdmin`, formData);
   }
 
@@ -139,7 +137,6 @@ export class UsersService {
 
   editCompanyAdmin(id: string, companyAdmin: CompanyAdminEditDTO) {
     const formData = this.buildFormDataForCompanyAdmin(companyAdmin, 'edit')
-    console.log(Array.from(formData));
     return this.http.put(`${this.apiURL}/editCompanyAdmin/${id}`, formData);
   }
 
@@ -199,13 +196,11 @@ export class UsersService {
 
   editEmployee(id: string, employee: EmployeeEditDTO) {
     const formData = this.buildFormDataForEmployee(employee, 'edit')
-    console.log(Array.from(formData));
     return this.http.put(`${this.apiURL}/editEmployee/${id}`, formData);
   }
 
   editEmployeeSettings(id: string, employee: EmployeeSettingsEditDTO) {
     const formData = this.buildFormDataForEmployee(employee, 'editSettings')
-    console.log(Array.from(formData));
     return this.http.put(`${this.apiURL}/editEmployeeSettings/${id}`, formData);
   }
 

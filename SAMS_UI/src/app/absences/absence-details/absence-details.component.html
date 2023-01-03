@@ -1,0 +1,52 @@
+<form [formGroup]="formData">
+    <mat-form-field appearance="outline">
+        <mat-label>Employee</mat-label>
+        <input formControlName="employeeName" matInput readonly="true" />
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>Absence Type</mat-label>
+        <input formControlName="absenceType" matInput readonly="true" />
+    </mat-form-field>
+
+    <ng-container *ngIf="this.data.absenceType == 0">
+        <mat-form-field appearance="outline">
+            <mat-label>Allowed Annual Leave</mat-label>
+            <input formControlName="employeeMaximumAnnualLeave" matInput readonly="true" />
+        </mat-form-field>
+    
+        <mat-form-field appearance="outline">
+            <mat-label>Remaianing Annual Leave</mat-label>
+            <input formControlName="employeeRemainingAnuualLeave" matInput readonly="true" />
+        </mat-form-field>
+    </ng-container>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input formControlName="startDate" matInput readonly="true" />
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>End Date</mat-label>
+        <input formControlName="endDate" matInput readonly="true" />
+    </mat-form-field>
+    
+    <mat-form-field  appearance="outline">
+        <mat-label>Total days</mat-label>
+        <input formControlName="durationInDays" matInput readonly="true" />
+    </mat-form-field>
+
+    <mat-form-field  appearance="outline">
+        <mat-label>Absence Status</mat-label>
+        <input formControlName="absenceStatus" matInput readonly="true" />
+    </mat-form-field>
+    
+    <mat-form-field style="width: 98%;" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput readonly="true"></textarea>
+    </mat-form-field>
+
+    <div mat-dialog-actions>
+        <button style="margin: auto;" class="mat-raised-button" (click)="close()">Close</button>
+    </div>
+</form>

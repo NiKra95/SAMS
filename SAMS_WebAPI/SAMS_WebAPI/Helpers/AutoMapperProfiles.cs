@@ -77,8 +77,16 @@ namespace SAMS_WebAPI.Helpers
 
             CreateMap<AbsenceDTO, Absence>().ReverseMap();
 
-            //CreateMap<Absence, AbsenceDTO>()
-            //   .ForMember(x => x.abs, options => options.MapFrom(prop => ))
+            CreateMap<CompanyAbsenceDTO, Absence>();
+
+            CreateMap<Absence, CompanyAbsenceDTO>()
+               .ForMember(x => x.EmployeeName, options => options
+                                  .MapFrom(prop => String.Format("{0} {1}", prop.Employee.ApplicationUser.FirstName,
+                                                                          prop.Employee.ApplicationUser.LastName)))
+               .ForMember(x => x.EmployeeMaximumAnnualLeave, options => options.MapFrom(prop => prop.Employee.MaximumAnnualLeave))
+               .ForMember(x => x.EmployeeRemainingAnuualLeave, options => options.MapFrom(prop => prop.Employee.RemainingAnnualLeave));
+
+
 
 
         }

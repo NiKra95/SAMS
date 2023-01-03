@@ -8,6 +8,7 @@ import { SecurityService } from 'src/app/security/security.service';
 import { AbsenceDTO, AbsenceStatus, AbsenceType } from '../absence.model';
 import { AbsenceService } from '../absence.service';
 import { CreateAbsenceComponent } from '../create-absence/create-absence.component';
+import { EditAbsenceComponent } from '../edit-absence/edit-absence.component';
 
 @Component({
   selector: 'app-index-absences',
@@ -20,7 +21,7 @@ export class IndexAbsencesComponent implements OnInit {
               private securityService: SecurityService,
               private dialog: MatDialog) { }
 
-  columnsToDisplay = ['absenceType', 'startDate', 'endDate', 'durationInDays', 'description', 'absenceStatus'];
+  columnsToDisplay = ['absenceType', 'startDate', 'endDate', 'durationInDays', 'description', 'absenceStatus', 'actions'];
   dataSource: MatTableDataSource<AbsenceDTO>;
   totalAmountOfRecords;
   currentPage = 1;
@@ -37,6 +38,7 @@ export class IndexAbsencesComponent implements OnInit {
     this.absenceService.getUserAbsences(this.currentPage, this.pageSize, userId).subscribe((response: HttpResponse<AbsenceDTO[]>) => {
       this.dataSource = new MatTableDataSource(response.body);
       this.sort.sort(({ id: 'startDate', start: 'desc'}) as MatSortable);
+      this.sort.direction = 'desc';
       this.dataSource.sort = this.sort;
       this.totalAmountOfRecords = response.headers.get("totalAmountOfRecords");
     })
@@ -58,31 +60,32 @@ export class IndexAbsencesComponent implements OnInit {
     });
   }
 
-  getAbsenceTypeName(enumValue) {
-    return AbsenceType[enumValue];
+  openEditAbsenceDialog(index: string): void {
+    const dialogRef = this.dialog.open(EditAbsenceComponent, {
+      width: '20%',
+      data: this.dataSource.data[index],
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.loadData();
+    });
   }
 
-  getAbsenceStatusName(enumValue) {
-    return AbsenceStatus[enumValue];
+  delete(id: number): void {
+    this.absenceService.delete(id).subscribe(() => {
+      this.loadData();
+    });
   }
 
-  absenceStatusStyle(absenceStatus) {
-    let absenceStatusStyle;
-    switch(absenceStatus) {
-      case AbsenceStatus.Pending: 
-        absenceStatusStyle ='pending-style';
-        break;
-      case AbsenceStatus.Approved:
-        absenceStatusStyle = 'approved-style';
-        break;
-      case AbsenceStatus.Denied:
-        absenceStatusStyle = 'denied-style';
-        break;
-    }
-
-    return absenceStatusStyle;
-    
+  editButtonStyle(absenceStatus: AbsenceStatus) {
+    if(absenceStatus == AbsenceStatus.Pending)
+      return 'edit-button';
+    return null;
   }
 
-
+  isEditAndDeleteButtonDisabled(absenceStatus: AbsenceStatus) {
+    if(absenceStatus != AbsenceStatus.Pending)
+      return true;
+    return false;
+  }
 }

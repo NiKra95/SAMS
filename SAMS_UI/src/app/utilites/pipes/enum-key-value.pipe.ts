@@ -10,8 +10,6 @@ export class EnumKeyValuePipe implements PipeTransform {
     const keys = Object.getOwnPropertyNames(value);
 
     const results = Object.keys(value).map(key => {
-      console.log(key);
-      console.log(value[key]);
       return { key: key, value: value[key] };
     });
     return;

@@ -22,6 +22,7 @@ import { IsAdminGuard } from './security/route-guards/is-admin.guard';
 import { CreateCompanyAdminComponent } from './users/company-admins/create-company-admin/create-company-admin.component';
 import { CreateEmployeeComponent } from './users/employees/create-employee/create-employee.component';
 import { CreateAbsenceComponent } from './absences/create-absence/create-absence.component';
+import { IndexCompanyAbsencesComponent } from './absences/index-company-absences/index-company-absences.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: 'employees/create', component: CreateEmployeeComponent, canActivate: [IsCompanyAdminGuard]},
   {path: 'absences', component: IndexAbsencesComponent, canActivate: [IsEmployeeGuard]},
   {path: 'absences/create', component: CreateAbsenceComponent, canActivate: [IsEmployeeGuard]},
+  {path: 'company-absences', component: IndexCompanyAbsencesComponent, canActivate: [IsCompanyAdminGuard]},
   {path: 'calendar', component: CalendarComponent, canActivate: [IsCompanyAdminGuard, IsEmployeeGuard]},
 
   {path: 'about', component: AboutComponent},

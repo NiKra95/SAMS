@@ -25,7 +25,6 @@ export class CompanyService {
 
   create(companyCreationDTO: CompanyCreationDTO):Observable<number> {
     const formData: FormData = this.BuildFormData(companyCreationDTO);
-    console.log(Array.from(formData));
     return this.http.post<number>(this.apiURL, formData);
   }
 

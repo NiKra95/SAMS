@@ -1,20 +1,19 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SecurityService } from 'src/app/security/security.service';
-import { AbsenceCreationDTO, AbsenceStatus, AbsenceType } from '../absence.model';
+import { AbsenceCreationDTO, AbsenceDTO, AbsenceStatus, AbsenceType } from '../absence.model';
 import { AbsenceService } from '../absence.service';
 
 @Component({
-  selector: 'app-create-absence',
-  templateUrl: './create-absence.component.html',
-  styleUrls: ['./create-absence.component.scss'],
+  selector: 'app-edit-absence',
+  templateUrl: './edit-absence.component.html',
+  styleUrls: ['./edit-absence.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [DatePipe] 
 })
-export class CreateAbsenceComponent implements OnInit {
+export class EditAbsenceComponent implements OnInit {
 
   model: AbsenceCreationDTO;
   form: FormGroup;
@@ -25,14 +24,16 @@ export class CreateAbsenceComponent implements OnInit {
   
   constructor(private securityService: SecurityService,
               private absenceService: AbsenceService,
-              public dialogRef: MatDialogRef<CreateAbsenceComponent>) {} 
+              public datePipe: DatePipe,
+              public dialogRef: MatDialogRef<EditAbsenceComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: AbsenceDTO) {} 
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      absenceType: new FormControl('', Validators.required),
-      description: new FormControl('No Description'),
-      startDate: new FormControl('', Validators.required),
-      endDate: new FormControl('', Validators.required),
+      absenceType: new FormControl(this.data.absenceType, Validators.required),
+      description: new FormControl(this.data.description),
+      startDate: new FormControl(this.data.startDate, Validators.required),
+      endDate: new FormControl(this.data.endDate, Validators.required),
       absenceStatus: new FormControl(AbsenceStatus.Pending, Validators.required)
     });
     
@@ -47,7 +48,7 @@ export class CreateAbsenceComponent implements OnInit {
     this.model = this.form.value;
     this.model.employeeId = this.securityService.getUserID();
     this.model.durationInDays = this.getWorkingDayCount(this.model.startDate, this.model.endDate);
-    this.absenceService.create(this.model).subscribe(() => {
+    this.absenceService.edit(this.data.id, this.model).subscribe(() => {
       this.dialogRef.close(true);
     });
   }

@@ -7,7 +7,6 @@
     .new-absence-button
     {
         float: right;
-        // background-color: green;
         margin: 1rem;
     }
 
@@ -34,30 +33,30 @@
 
     table {
         width: 100%;
-        table-layout: fixed;
+        table-layout: auto;
 
         .mat-header-cell {
             font-weight: bolder;
             background-color: gainsboro;
         }
 
-        tr { 
-            height: 2rem !important;
-        }
-
         .detail-cell {
             text-align: center;
 
             td, th {
-                width: 30%;
+                width: 30%
             }
 
             button {
                 color: white;
                 margin: 5px;
+            } 
+
+            .details-button {
+                background-color: #09aeae;
             }
 
-            .edit-button {
+            .approve-button {
                 background-color: green;
             }
         }

@@ -32,3 +32,17 @@ export interface AbsenceCreationDTO {
     description: string;
     absenceStatus: string;
 }
+
+export interface CompanyAbsenceDTO {
+    id: number,
+    employeeId: string;
+    employeeName: string;
+    employeeMaximumAnnualLeave: number;
+    employeeRemainingAnuualLeave: number;
+    absenceType: AbsenceType;
+    startDate: Date;
+    endDate: Date;
+    durationInDays: number;
+    description: string;
+    absenceStatus: AbsenceStatus;
+}
