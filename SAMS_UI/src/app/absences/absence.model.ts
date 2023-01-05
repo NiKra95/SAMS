@@ -46,3 +46,16 @@ export interface CompanyAbsenceDTO {
     description: string;
     absenceStatus: AbsenceStatus;
 }
+
+export interface ApprovedUserAbsenceDTO {
+    absenceType: AbsenceType;
+    startDate: Date;
+    endDate: Date;
+}
+
+export interface ApprovedAbsencesInCompanyDTO {
+    employeeFullName: string;
+    absenceType: AbsenceType;
+    startDate: Date;
+    endDate: Date;
+}

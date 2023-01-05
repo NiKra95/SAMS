@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms'
 import {FlexLayoutModule} from '@angular/flex-layout';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 import { MaterialModule } from './material/material.module';
@@ -17,7 +18,6 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { IndexCompaniesComponent } from './companies/index-companies/index-companies.component';
 import { IndexDepartmentsComponent } from './departments/index-departments/index-departments.component';
 import { IndexAbsencesComponent } from './absences/index-absences/index-absences.component';
-import { CalendarComponent } from './calendar/calendar/calendar.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AboutComponent } from './about/about.component';
 import { HelpComponent } from './help/help.component';
@@ -53,6 +53,8 @@ import { CreateAbsenceComponent } from './absences/create-absence/create-absence
 import { IndexCompanyAbsencesComponent } from './absences/index-company-absences/index-company-absences.component';
 import { AbsenceDetailsComponent } from './absences/absence-details/absence-details.component';
 import { EditAbsenceComponent } from './absences/edit-absence/edit-absence.component';
+import { UserAbsencesCalendarComponent } from './calendar/user-absences-calendar/user-absences-calendar.component';
+import { CompanyAbsencesCalendarComponent } from './calendar/company-absences-calendar/company-absences-calendar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +65,6 @@ import { EditAbsenceComponent } from './absences/edit-absence/edit-absence.compo
     IndexCompaniesComponent,
     IndexDepartmentsComponent,
     IndexAbsencesComponent,
-    CalendarComponent,
     SettingsComponent,
     AboutComponent,
     HelpComponent,
@@ -96,7 +97,9 @@ import { EditAbsenceComponent } from './absences/edit-absence/edit-absence.compo
     CreateAbsenceComponent,
     IndexCompanyAbsencesComponent,
     AbsenceDetailsComponent,
-    EditAbsenceComponent
+    EditAbsenceComponent,
+    UserAbsencesCalendarComponent,
+    CompanyAbsencesCalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +108,8 @@ import { EditAbsenceComponent } from './absences/edit-absence/edit-absence.compo
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FullCalendarModule 
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

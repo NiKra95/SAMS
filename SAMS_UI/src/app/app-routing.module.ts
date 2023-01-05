@@ -2,10 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { IndexAbsencesComponent } from './absences/index-absences/index-absences.component';
-import { CalendarComponent } from './calendar/calendar/calendar.component';
 import { IndexCompaniesComponent } from './companies/index-companies/index-companies.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
-// import { IndexDepartmentsComponent } from './departments/index-departments/index-departments.component';
 import { IndexEmployeesComponent } from './users/employees/index-employees/index-employees.component';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
@@ -23,6 +21,8 @@ import { CreateCompanyAdminComponent } from './users/company-admins/create-compa
 import { CreateEmployeeComponent } from './users/employees/create-employee/create-employee.component';
 import { CreateAbsenceComponent } from './absences/create-absence/create-absence.component';
 import { IndexCompanyAbsencesComponent } from './absences/index-company-absences/index-company-absences.component';
+import { UserAbsencesCalendarComponent } from './calendar/user-absences-calendar/user-absences-calendar.component';
+import { CompanyAbsencesCalendarComponent } from './calendar/company-absences-calendar/company-absences-calendar.component';
 
 
 const routes: Routes = [
@@ -39,7 +39,8 @@ const routes: Routes = [
   {path: 'absences', component: IndexAbsencesComponent, canActivate: [IsEmployeeGuard]},
   {path: 'absences/create', component: CreateAbsenceComponent, canActivate: [IsEmployeeGuard]},
   {path: 'company-absences', component: IndexCompanyAbsencesComponent, canActivate: [IsCompanyAdminGuard]},
-  {path: 'calendar', component: CalendarComponent, canActivate: [IsCompanyAdminGuard, IsEmployeeGuard]},
+  {path: 'user-absences-calendar', component: UserAbsencesCalendarComponent, canActivate: [IsEmployeeGuard]},
+  {path: 'company-absences-calendar', component: CompanyAbsencesCalendarComponent, canActivate: [IsCompanyAdminGuard]},
 
   {path: 'about', component: AboutComponent},
   {path: 'help', component: HelpComponent},
