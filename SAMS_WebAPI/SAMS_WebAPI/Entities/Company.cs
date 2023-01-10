@@ -25,6 +25,8 @@ namespace SAMS_WebAPI.Entities
 
         public DateTime CreationDate { get; set; }
 
+        public int MinimumAnnualLeaveDays { get; set; }
+
         public int NumberOfEmployees { get; set; }
 
         public int NumberOfAdmins { get; set; }

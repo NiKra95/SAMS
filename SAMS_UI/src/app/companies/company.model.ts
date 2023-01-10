@@ -16,6 +16,12 @@ export interface CompanyCreationDTO {
     address: string;
     country: string;
     website: string;
+    minimumAnnualLeaveDays: number;
     logo: File;
     creationDate: Date;
+}
+
+export interface CompanySettingsDTO {
+    companyId: number,
+    minimumAnnualLeaveDays: number;
 }

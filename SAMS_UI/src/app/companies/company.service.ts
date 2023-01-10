@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CompanyCreationDTO, CompanyDTO } from './company.model';
+import { CompanyCreationDTO, CompanyDTO, CompanySettingsDTO } from './company.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,15 +25,27 @@ export class CompanyService {
 
   create(companyCreationDTO: CompanyCreationDTO):Observable<number> {
     const formData: FormData = this.BuildFormData(companyCreationDTO);
+    console.log(Array.from(formData));
     return this.http.post<number>(this.apiURL, formData);
   }
 
-  private BuildFormData(company: CompanyCreationDTO): FormData {
+  resetSettings(companySettingsDTO: CompanySettingsDTO):Observable<any> {
+    const formData: FormData = this.BuildCompanySettingsFormData(companySettingsDTO);
+    console.log(Array.from(formData));
+    return this.http.put(`${this.apiURL}/resetCompanySettings`, formData, {observe: 'response'});
+  }
+
+  getMinimumAnnualLeaveDaysInCompany(companyId: number) {
+    return this.http.get<CompanySettingsDTO>(`${this.apiURL}/getMinimumAnnualLeaveDaysInCompany/${companyId}`);
+  }
+
+  private BuildFormData(company: any): FormData {
     const formData = new FormData();
 
     formData.append('name', company.name);
     formData.append('address', company.address);
     formData.append('country', company.country);
+    formData.append('minimumAnnualLeaveDays', company.minimumAnnualLeaveDays);
 
     if(company.website){
       formData.append('website', company.website);
@@ -43,6 +55,16 @@ export class CompanyService {
     }
 
     formData.append('creationDate', this.pipe.transform(company.creationDate, 'yyyy-MM-dd HH:mm:ss') );
+
+    return formData;
+
+  }
+
+  private BuildCompanySettingsFormData(companySettings: CompanySettingsDTO): FormData {
+    const formData = new FormData();
+
+    formData.append('companyId', companySettings.companyId.toString());
+    formData.append('minimumAnnualLeaveDays', companySettings.minimumAnnualLeaveDays.toString());
 
     return formData;
 

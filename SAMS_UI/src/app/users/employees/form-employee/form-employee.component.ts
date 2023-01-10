@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CompanySettingsDTO } from 'src/app/companies/company.model';
+import { CompanyService } from 'src/app/companies/company.service';
+import { SecurityService } from 'src/app/security/security.service';
 import { EmployeeCreationDTO, GenderType } from '../../users.model';
 
 @Component({
@@ -9,15 +12,17 @@ import { EmployeeCreationDTO, GenderType } from '../../users.model';
 })
 export class FormEmployeeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private securityService: SecurityService,
+              private companyService: CompanyService) { }
 
   form: FormGroup;
   public showPassword: boolean = false;
   genders = Object.keys(GenderType).filter((x) => !Number.isNaN(Number(x))).map(key => GenderType[key]);
   selectedGender: GenderType = this.genders[0];
+  employeeCreationModel: EmployeeCreationDTO; 
 
   @Input()
-  model: EmployeeCreationDTO;
+  model: CompanySettingsDTO;
 
   @Output()
   onSaveChanges = new EventEmitter<EmployeeCreationDTO>();
@@ -27,14 +32,16 @@ export class FormEmployeeComponent implements OnInit {
       firstName: new FormControl('', Validators.required),
       lastName: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
-      // address: new FormControl('No Address'),
       password: new FormControl('', Validators.required),
       gender: new FormControl('', Validators.required),
       designation: new FormControl('', Validators.required),
       startWorkingDate: new FormControl('', Validators.required),
-      maximumAnnualLeave: new FormControl(20, Validators.required),
-
+      maximumAnnualLeave: new FormControl('', Validators.required),
     });
+
+    if (this.model !== undefined){
+      this.form.patchValue({maximumAnnualLeave: this.model.minimumAnnualLeaveDays})
+    }
   }
 
   saveChanges(){

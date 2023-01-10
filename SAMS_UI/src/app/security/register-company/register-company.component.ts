@@ -38,13 +38,14 @@ export class RegisterCompanyComponent implements OnInit {
          address: registrationRequest.companyAddress,
          country: registrationRequest.companyCountry,
          website: registrationRequest.companyWebsite,
+         minimumAnnualLeaveDays: registrationRequest.minimumAnnualLeaveDays,
          logo: registrationRequest.logo,
          creationDate: new Date()
       };
 
       this.companyService.create(this.company).subscribe(id => {
         var companyId = id;
-    
+          
         this.companyAdmin = {
           firstName: registrationRequest.firstName,
           lastName: registrationRequest.lastName,

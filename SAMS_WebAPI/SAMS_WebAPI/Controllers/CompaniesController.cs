@@ -10,13 +10,13 @@ namespace SAMS_WebAPI.Controllers
 {
     [Route("api/companies")]
     [ApiController]
-    public class CompaniesController: ControllerBase
+    public class CompaniesController : ControllerBase
     {
         private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
         private readonly IFileStorageService fileStorageService;
         private readonly UserManager<ApplicationUser> userManager;
-        private  string containerName = "companies";
+        private string containerName = "companies";
 
         public CompaniesController(ApplicationDbContext context, IMapper mapper,
             IFileStorageService fileStorageService,
@@ -54,7 +54,7 @@ namespace SAMS_WebAPI.Controllers
 
                 var company = mapper.Map<Company>(companyCreationDTO);
 
-                if(companyCreationDTO.Logo != null)
+                if (companyCreationDTO.Logo != null)
                 {
                     company.Logo = await fileStorageService.SaveFile(containerName, companyCreationDTO.Logo);
                 }
@@ -67,7 +67,61 @@ namespace SAMS_WebAPI.Controllers
                 return company.Id;
 
             }
-            catch(Exception e)
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("getMinimumAnnualLeaveDaysInCompany/{companyId:int}")]
+        public async Task<ActionResult<CompanySettingsDTO>> GetMinimumAnnualLeaveDaysInCompany(int companyId)
+        {
+            try
+            {
+                var company = await context.Companies.Where(x => x.Id.Equals(companyId)).FirstOrDefaultAsync();
+
+                CompanySettingsDTO companySettingsDTO = new()
+                {
+                    CompanyId = companyId,
+                    MinimumAnnualLeaveDays = company!.MinimumAnnualLeaveDays
+                };
+
+                return companySettingsDTO;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut("resetCompanySettings")]
+        public async Task<ActionResult> ResetCompanySettings([FromForm] CompanySettingsDTO companySettingsDTO)
+        {
+            try
+            {
+                var company = await context.Companies.Where(x => x.Id == companySettingsDTO.CompanyId).FirstOrDefaultAsync();
+
+                if (company == null)
+                {
+                    return NotFound();
+                }
+
+                int previousMinAnnualLeaveDays = company.MinimumAnnualLeaveDays;
+                company.MinimumAnnualLeaveDays = companySettingsDTO.MinimumAnnualLeaveDays;
+
+                var companyEmployees = context.Employees.Where(x => x.CompanyId.Equals(companySettingsDTO.CompanyId)).AsQueryable();
+
+                foreach (var emp in companyEmployees)
+                {
+                    int extraDays = emp.MaximumAnnualLeave - previousMinAnnualLeaveDays;
+                    emp.MaximumAnnualLeave = emp.RemainingAnnualLeave = (extraDays == 0) ? companySettingsDTO.MinimumAnnualLeaveDays
+                                                                                         : companySettingsDTO.MinimumAnnualLeaveDays + extraDays;
+                }
+
+                await context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }

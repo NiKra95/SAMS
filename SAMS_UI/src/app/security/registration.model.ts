@@ -14,6 +14,7 @@ export interface RegistrationRequest {
     companyAddress: string;
     companyCountry: string;
     companyWebsite: string;
+    minimumAnnualLeaveDays: number,
     logo: File;
 
 }

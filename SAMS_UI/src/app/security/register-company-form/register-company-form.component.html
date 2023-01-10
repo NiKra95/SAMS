@@ -78,6 +78,13 @@
                         <input formControlName="companyWebsite" matInput />
                     </mat-form-field>
 
+                    
+                    <mat-form-field appearance="outline">
+                        <mat-label>Minimum Annual Leave Days</mat-label>
+                        <input type="number" formControlName="minimumAnnualLeaveDays" matInput />
+                        <mat-error>Minimum Annual Leave Days is a required</mat-error>
+                    </mat-form-field>
+
                     <app-input-img [buttonText]="'Select Logo'"
                         [urlCurrentImage]="company?.logo"
                         (onImageSelected)="onImageSelected($event)">

@@ -1,0 +1,5 @@
+<h2>Company Settings</h2>
+
+<!-- <app-display-errors [errors]="errors"></app-display-errors> -->
+
+<app-form-company-settings *ngIf="model" [model]="model" (onSaveChanges)="resetCompanySettings($event)"></app-form-company-settings>

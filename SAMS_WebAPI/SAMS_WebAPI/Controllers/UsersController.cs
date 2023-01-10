@@ -581,7 +581,7 @@ namespace SAMS_WebAPI.Controllers
                 employee.MaximumAnnualLeave = employeeEditDTO.MaximumAnnualLeave;
 
                 await context.SaveChangesAsync();
-                return NoContent();
+                return Ok();
             }
             catch (Exception e)
             {

@@ -3,22 +3,23 @@ import { Router } from '@angular/router';
 import { CompanySettingsDTO } from 'src/app/companies/company.model';
 import { CompanyService } from 'src/app/companies/company.service';
 import { SecurityService } from 'src/app/security/security.service';
-import { EmployeeCreationDTO } from '../../users.model';
-import { UsersService } from '../../users.service';
+import { SettingsService } from '../settings.service';
 
 @Component({
-  selector: 'app-create-employee',
-  templateUrl: './create-employee.component.html',
-  styleUrls: ['./create-employee.component.scss']
+  selector: 'app-company-settings',
+  templateUrl: './company-settings.component.html',
+  styleUrls: ['./company-settings.component.scss']
 })
-export class CreateEmployeeComponent implements OnInit {
+export class CompanySettingsComponent implements OnInit {
+
+  errors: string[] = [];
 
   constructor(private securityService: SecurityService,
               private companyService: CompanyService,
-              private usersService: UsersService,
               private router: Router) { }
 
   model: CompanySettingsDTO;
+
 
   ngOnInit(): void {
     let companyId = parseInt(this.securityService.getCompanyID());
@@ -27,10 +28,9 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
-  saveChanges(employeeCreationDTO: EmployeeCreationDTO){
-    employeeCreationDTO.companyId = parseInt(this.securityService.getCompanyID());
-    this.usersService.createEmployee(employeeCreationDTO).subscribe(() => {
-      this.router.navigate(['/employees']);
+  resetCompanySettings(companySettings: CompanySettingsDTO) {
+    companySettings.companyId = parseInt(this.securityService.getCompanyID());
+    this.companyService.resetSettings(companySettings).subscribe(() => {
     });
   }
 

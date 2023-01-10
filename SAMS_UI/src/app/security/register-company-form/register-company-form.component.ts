@@ -54,6 +54,7 @@ export class RegisterCompanyFormComponent implements OnInit {
         companyAddress: new FormControl('', Validators.required),
         companyCountry: new FormControl('', Validators.required),
         companyWebsite: new FormControl(),
+        minimumAnnualLeaveDays: new FormControl('', Validators.required),
         logo: new FormControl()
     })
   }

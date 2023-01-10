@@ -16,14 +16,11 @@ import { TopNavigationComponent } from './menu/top-navigation/top-navigation.com
 import { SideNavigationComponent } from './menu/side-navigation/side-navigation.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { IndexCompaniesComponent } from './companies/index-companies/index-companies.component';
-import { IndexDepartmentsComponent } from './departments/index-departments/index-departments.component';
 import { IndexAbsencesComponent } from './absences/index-absences/index-absences.component';
-import { SettingsComponent } from './settings/settings.component';
 import { AboutComponent } from './about/about.component';
 import { HelpComponent } from './help/help.component';
 import { LoginComponent } from './security/login/login.component';
 import { AuthorizeViewComponent } from './security/authorize-view/authorize-view.component';
-// import { RegisterCompanyComponent } from './companies/register-company/register-company.component';
 import { DisplayErrorsComponent } from './utilites/display-errors/display-errors.component';
 import { GenericListComponent } from './utilites/generic-list/generic-list.component';
 import { InputImgComponent } from './utilites/input-img/input-img.component';
@@ -55,6 +52,8 @@ import { AbsenceDetailsComponent } from './absences/absence-details/absence-deta
 import { EditAbsenceComponent } from './absences/edit-absence/edit-absence.component';
 import { UserAbsencesCalendarComponent } from './calendar/user-absences-calendar/user-absences-calendar.component';
 import { CompanyAbsencesCalendarComponent } from './calendar/company-absences-calendar/company-absences-calendar.component';
+import { CompanySettingsComponent } from './settings/company-settings/company-settings.component';
+import { FormCompanySettingsComponent } from './settings/company-settings/form-company-settings/form-company-settings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,9 +62,7 @@ import { CompanyAbsencesCalendarComponent } from './calendar/company-absences-ca
     SideNavigationComponent,
     DashboardComponent,
     IndexCompaniesComponent,
-    IndexDepartmentsComponent,
     IndexAbsencesComponent,
-    SettingsComponent,
     AboutComponent,
     HelpComponent,
     LoginComponent,
@@ -99,7 +96,9 @@ import { CompanyAbsencesCalendarComponent } from './calendar/company-absences-ca
     AbsenceDetailsComponent,
     EditAbsenceComponent,
     UserAbsencesCalendarComponent,
-    CompanyAbsencesCalendarComponent
+    CompanyAbsencesCalendarComponent,
+    CompanySettingsComponent,
+    FormCompanySettingsComponent
   ],
   imports: [
     BrowserModule,

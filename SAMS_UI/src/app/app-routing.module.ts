@@ -7,7 +7,6 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { IndexEmployeesComponent } from './users/employees/index-employees/index-employees.component';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
-import { SettingsComponent } from './settings/settings.component';
 import { IndexApplicationAdminsComponent } from './users/application-admins/index-application-admins/index-application-admins.component';
 import { IndexCompanyAdminsComponent } from './users/company-admins/index-company-admins/index-company-admins.component';
 import { LoginComponent } from './security/login/login.component';
@@ -23,6 +22,7 @@ import { CreateAbsenceComponent } from './absences/create-absence/create-absence
 import { IndexCompanyAbsencesComponent } from './absences/index-company-absences/index-company-absences.component';
 import { UserAbsencesCalendarComponent } from './calendar/user-absences-calendar/user-absences-calendar.component';
 import { CompanyAbsencesCalendarComponent } from './calendar/company-absences-calendar/company-absences-calendar.component';
+import { CompanySettingsComponent } from './settings/company-settings/company-settings.component';
 
 
 const routes: Routes = [
@@ -33,7 +33,6 @@ const routes: Routes = [
   {path: 'companies', component: IndexCompaniesComponent, canActivate: [IsApplicationAdminGuard]},
   {path: 'company-admins', component: IndexCompanyAdminsComponent, canActivate: [IsAdminGuard]},
   {path: 'company-admins/create', component: CreateCompanyAdminComponent, canActivate: [IsCompanyAdminGuard]},
-  {path: 'settings', component: SettingsComponent, canActivate: [IsApplicationAdminGuard, IsCompanyAdminGuard]},
   {path: 'employees', component: IndexEmployeesComponent, canActivate: [IsCompanyAdminGuard]},
   {path: 'employees/create', component: CreateEmployeeComponent, canActivate: [IsCompanyAdminGuard]},
   {path: 'absences', component: IndexAbsencesComponent, canActivate: [IsEmployeeGuard]},
@@ -41,6 +40,7 @@ const routes: Routes = [
   {path: 'company-absences', component: IndexCompanyAbsencesComponent, canActivate: [IsCompanyAdminGuard]},
   {path: 'user-absences-calendar', component: UserAbsencesCalendarComponent, canActivate: [IsEmployeeGuard]},
   {path: 'company-absences-calendar', component: CompanyAbsencesCalendarComponent, canActivate: [IsCompanyAdminGuard]},
+  {path: 'company-settings', component: CompanySettingsComponent, canActivate: [IsCompanyAdminGuard]},
 
   {path: 'about', component: AboutComponent},
   {path: 'help', component: HelpComponent},

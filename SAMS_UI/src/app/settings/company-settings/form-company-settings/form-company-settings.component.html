@@ -1,0 +1,10 @@
+<form (submit)="resetCompanySettings()" [formGroup]="form">
+    <mat-form-field appearance="outline">
+        <mat-label>Minimum Annual Leave Days</mat-label>
+        <input type="number" formControlName="minimumAnnualLeaveDays" matInput />
+        <mat-error>Minimum Annual Leave Days is a required</mat-error>
+    </mat-form-field>
+    <button mat-flat-button color="primary" [disabled]="form.invalid">
+        Reset Settings
+    </button>
+</form>
