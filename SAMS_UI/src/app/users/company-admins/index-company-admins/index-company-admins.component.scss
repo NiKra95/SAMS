@@ -11,6 +11,11 @@
         margin: 1rem;
     }
 
+    .table-container {
+        max-height: 42.5rem;
+        overflow: auto;
+    }
+
     table {
         width: 100%;
         table-layout: fixed;

@@ -1,0 +1,38 @@
+<div class="application-info-container">
+    <div class="application-info">
+        <h4>Users</h4>
+        <h1>{{model.numberOfUsers}}</h1>
+    </div>
+    <div class="application-info">
+        <h4>Application Admins</h4>
+        <h1 class="info-number">{{model.numberOfApplicationAdmins}}</h1>
+    </div>
+    <div class="application-info">
+        <h4>Companies</h4>
+        <h1>{{model.numberOfCompanies}}</h1>
+    </div>
+</div>
+
+<div class="charts">
+    <div class="user-types-chart">
+        <apx-chart [chart]="userTypesChart.chart" [title]="userTypesChart.title"
+                    [colors]="userTypesChart.colors" [series]="userTypesChart.series"
+                    [labels]="userTypesChart.labels" [dataLabels]="userTypesChart.dataLabels"></apx-chart>
+    </div>
+    
+    <div id="company-stat-chart">
+        <apx-chart
+          [series]="companyStatChart.series"
+          [chart]="companyStatChart.chart"
+          [xaxis]="companyStatChart.xaxis"
+          [stroke]="companyStatChart.stroke"
+          [tooltip]="companyStatChart.tooltip"
+          [dataLabels]="companyStatChart.dataLabels"
+          [legend]="companyStatChart.legend"
+          [markers]="companyStatChart.markers"
+          [grid]="companyStatChart.grid"
+          [yaxis]="companyStatChart.yaxis"
+          [title]="companyStatChart.title"
+        ></apx-chart>
+    </div>
+</div>

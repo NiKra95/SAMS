@@ -24,6 +24,9 @@
     "@fullcalendar/angular": "^6.0.2",
     "@fullcalendar/core": "^6.0.2",
     "@fullcalendar/daygrid": "^6.0.2",
+    "apexcharts": "^3.36.3",
+    "foreach-object": "^1.0.3",
+    "ng-apexcharts": "^1.7.4",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

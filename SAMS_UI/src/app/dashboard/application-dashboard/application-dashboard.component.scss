@@ -1,0 +1,53 @@
+:host {
+    position: absolute;
+    width: 98%;
+    top: 0;
+    left: 1rem;
+}
+
+.application-info-container {
+    position: relative;
+    display: inline;
+
+    .application-info {
+        background: #34568b;
+        display: inline-block;
+        margin: 1rem;
+        width: 512px;
+        border-radius: 20px;
+        height: 100px;
+        color: #fff;
+        font-size: x-large;
+
+        h4 {
+            margin: 0.8rem;
+            margin-bottom: 0.1rem;
+        }
+        
+        h1 {
+            margin: 0.8rem;
+            margin-top: 0;
+            text-align: right;
+        }
+    }
+}
+
+.charts {
+    display: flex;
+    flex-direction: row;
+    margin-top: 6rem;
+
+    .user-types-chart {
+        position: relative;
+        display: inline-block;
+        margin-right: 5rem;
+    }
+    
+    .company-stat-chart {
+        position: relative;
+        display: inline-block;
+    }
+}
+
+
+

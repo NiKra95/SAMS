@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {ReactiveFormsModule} from '@angular/forms'
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import {NgApexchartsModule} from 'ng-apexcharts'
+
 
 
 import { MaterialModule } from './material/material.module';
@@ -54,6 +56,9 @@ import { UserAbsencesCalendarComponent } from './calendar/user-absences-calendar
 import { CompanyAbsencesCalendarComponent } from './calendar/company-absences-calendar/company-absences-calendar.component';
 import { CompanySettingsComponent } from './settings/company-settings/company-settings.component';
 import { FormCompanySettingsComponent } from './settings/company-settings/form-company-settings/form-company-settings.component';
+import { EmployeeHomePageComponent } from './home/employee-home-page/employee-home-page.component';
+import { CompanyDashboardComponent } from './dashboard/company-dashboard/company-dashboard.component';
+import { ApplicationDashboardComponent } from './dashboard/application-dashboard/application-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,7 +103,10 @@ import { FormCompanySettingsComponent } from './settings/company-settings/form-c
     UserAbsencesCalendarComponent,
     CompanyAbsencesCalendarComponent,
     CompanySettingsComponent,
-    FormCompanySettingsComponent
+    FormCompanySettingsComponent,
+    EmployeeHomePageComponent,
+    CompanyDashboardComponent,
+    ApplicationDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +116,8 @@ import { FormCompanySettingsComponent } from './settings/company-settings/form-c
     ReactiveFormsModule,
     HttpClientModule,
     FlexLayoutModule,
-    FullCalendarModule 
+    FullCalendarModule,
+    NgApexchartsModule 
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

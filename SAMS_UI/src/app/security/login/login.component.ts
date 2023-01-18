@@ -18,7 +18,10 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.securityService.isAuthenticated()){
-      this.router.navigate(['/home']);
+      if(this.securityService.getRole() == 'employee')
+        this.router.navigate(['/home']);
+      else
+      this.router.navigate(['/dashboard']);
     }
   }
 

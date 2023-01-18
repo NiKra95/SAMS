@@ -19,6 +19,17 @@
         </ng-container>
     </app-authorize-view>
 
+    <app-authorize-view [role]="'employee'">
+        <ng-container authorized>
+            <div class="company-info">
+                <img class="company-logo" src="{{securityService.getFieldFromJWT('companyLogo')}}" alt="Company Logo">
+                <div class="company-name">
+                    {{securityService.getFieldFromJWT('companyName')}}  
+                </div>
+            </div>
+        </ng-container>
+    </app-authorize-view>
+
     <div class="application-name">
         Absence Management System
     </div>

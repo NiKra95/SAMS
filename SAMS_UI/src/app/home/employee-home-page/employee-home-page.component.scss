@@ -1,0 +1,61 @@
+:host {
+    position: absolute;
+    width: 98%;
+    top: 0;
+    left: 1rem;
+}
+
+.info-container {
+    position: absolute;
+    display: inline;
+    top: 1rem;
+
+    @mixin theme($theme: #0080ff) {
+        background: $theme;
+        display: inline-block;
+        margin-left: 2rem;
+        width: 370px;
+        border-radius: 20px;
+        height: 100px;
+        color: #fff;
+        font-size: x-large;
+
+        h4 {
+            margin: 0.8rem;
+            margin-bottom: 0.1rem;
+        }
+
+        .info-number {
+            text-align: right;
+            margin-right: 1rem;
+        }
+        
+        h1 {
+            margin: 0.8rem;
+            margin-top: 0;
+            text-align: right;
+        }
+    }
+
+    .all-absences{
+        @include theme;
+    }
+
+    .approved-absences{
+        @include theme($theme: #80ff00);
+    }
+
+    .pending-absences{
+        @include theme($theme: #ffbf00);
+    }
+
+    .denied-absences{
+        @include theme($theme: 	#ff0000);
+    }
+}
+
+.chart-container {
+    position: absolute;
+    margin-top: 12%;
+    left: 35%;
+}

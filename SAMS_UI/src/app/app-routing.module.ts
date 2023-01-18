@@ -4,6 +4,7 @@ import { AboutComponent } from './about/about.component';
 import { IndexAbsencesComponent } from './absences/index-absences/index-absences.component';
 import { IndexCompaniesComponent } from './companies/index-companies/index-companies.component';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { CompanyDashboardComponent } from './dashboard/company-dashboard/company-dashboard.component';
 import { IndexEmployeesComponent } from './users/employees/index-employees/index-employees.component';
 import { HelpComponent } from './help/help.component';
 import { HomeComponent } from './home/home.component';
@@ -27,7 +28,7 @@ import { CompanySettingsComponent } from './settings/company-settings/company-se
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'dashboard', component: DashboardComponent, canActivate: [IsApplicationAdminGuard, IsCompanyAdminGuard]},
+  {path: 'dashboard', component: DashboardComponent, canActivate: [IsAdminGuard]},
   {path: 'application-admins', component: IndexApplicationAdminsComponent, canActivate: [IsApplicationAdminGuard]},
   {path: 'application-admins/create', component: CreateAppAdminsComponent, canActivate: [IsApplicationAdminGuard]}, 
   {path: 'companies', component: IndexCompaniesComponent, canActivate: [IsApplicationAdminGuard]},

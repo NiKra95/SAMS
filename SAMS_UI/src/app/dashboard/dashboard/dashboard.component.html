@@ -1,1 +1,11 @@
-<p>dashboard works!</p>
+<ng-container *ngIf="this.securityService.getRole() == 'applicationAdmin'">
+    <ng-container>
+        <app-application-dashboard *ngIf="applicationModel" [model]="applicationModel"></app-application-dashboard>
+    </ng-container>
+</ng-container>
+
+<ng-container *ngIf="this.securityService.getRole() == 'companyAdmin'">
+    <ng-container>
+        <app-company-dashboard *ngIf="companyModel" [model]="companyModel"></app-company-dashboard>
+    </ng-container>
+</ng-container>

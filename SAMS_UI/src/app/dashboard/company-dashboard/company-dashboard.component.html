@@ -1,0 +1,46 @@
+<div class="company-info-container">
+    <div class="company-info">
+        <h4>Company Admins</h4>
+        <h1 class="info-number">{{model.numberOfAdmins}}</h1>
+    </div>
+    <div class="company-info">
+        <h4>Employees</h4>
+        <h1>{{model.approvedAbsences}}</h1>
+    </div>
+    <div class="company-info">
+        <h4>Minimum Annual Leave Days</h4>
+        <h1>{{model.minimumAnnualLeaveDays}}</h1>
+    </div>
+</div>
+
+<div class="absence-info-container">
+    <div class="all-absences">
+        <h4>Total Absences</h4>
+        <h1 class="info-number">{{model.numberOfAbsences}}</h1>
+    </div>
+    <div class="approved-absences">
+        <h4>Approved Absences</h4>
+        <h1>{{model.approvedAbsences}}</h1>
+    </div>
+    <div class="pending-absences">
+        <h4>Pending Absences</h4>
+        <h1>{{model.pendingAbsences}}</h1>
+    </div>
+    <div class="denied-absences">
+        <h4>Denied Absences</h4>
+        <h1>{{model.deniedAbsences}}</h1>
+    </div>
+</div>
+
+
+<div class="absence-status-chart">
+    <apx-chart [chart]="absenceStatusChart.chart" [title]="absenceStatusChart.title"
+                [colors]="absenceStatusChart.colors" [series]="absenceStatusChart.series"
+                [labels]="absenceStatusChart.labels" [dataLabels]="absenceStatusChart.dataLabels"></apx-chart>
+</div>
+
+<div class="absence-types-chart">
+    <apx-chart [chart]="absenceTypeChart.chart" [title]="absenceTypeChart.title"
+                [colors]="absenceTypeChart.colors" [series]="absenceTypeChart.series"
+                [labels]="absenceTypeChart.labels" [dataLabels]="absenceTypeChart.dataLabels"></apx-chart>
+</div>

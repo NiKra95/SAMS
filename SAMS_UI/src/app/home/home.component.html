@@ -12,8 +12,8 @@
     </ng-container>
 </app-authorize-view>
 
-<app-authorize-view>
-    <ng-container authorized>
-        <h2>Authorized user</h2>
+<ng-container *ngIf="this.securityService.getRole() == 'employee'">
+    <ng-container authorize>
+        <app-employee-home-page *ngIf="model" [model]="model"></app-employee-home-page>
     </ng-container>
-</app-authorize-view>
+</ng-container>

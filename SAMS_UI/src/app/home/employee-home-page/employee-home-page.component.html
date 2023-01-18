@@ -1,0 +1,24 @@
+<div class="info-container">
+    <div class="all-absences">
+        <h4>Total Absences</h4>
+        <h1 class="info-number">{{model.numberOfAbsences}}</h1>
+    </div>
+    <div class="approved-absences">
+        <h4>Approved Absences</h4>
+        <h1>{{model.approvedAbsences}}</h1>
+    </div>
+    <div class="pending-absences">
+        <h4>Pending Absences</h4>
+        <h1>{{model.pendingAbsences}}</h1>
+    </div>
+    <div class="denied-absences">
+        <h4>Denied Absences</h4>
+        <h1>{{model.deniedAbsences}}</h1>
+    </div>
+</div>
+
+<div class="chart-container">
+    <apx-chart [chart]="chartOptions.chart" [title]="chartOptions.title"
+                [colors]="chartOptions.colors" [series]="chartOptions.series"
+                [labels]="chartOptions.labels" [dataLabels]="chartOptions.dataLabels"></apx-chart>
+</div>
