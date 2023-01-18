@@ -6,11 +6,11 @@
                 <button mat-raised-button color="primary" class="create-admin-button" routerLink="/company-admins/create">Create New Admin</button>
             </ng-container>
         </app-authorize-view>
-        
-        <div class="table-container  mat-elevation-z8">
-            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-index table-responsive" matSort>
+
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-index" matSort>
                 <ng-container matColumnDef="firstName">
-                    <th mat-header-cell *matHeaderCellDef>First Name</th>
+                    <th mat-header-cell *matHeaderCellDef firstName>First Name</th>
                     <td mat-cell *matCellDef="let element">{{element.firstName}}</td>
                 </ng-container>
                 <ng-container matColumnDef="lastName">

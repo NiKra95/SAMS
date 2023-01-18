@@ -3,57 +3,59 @@
     <ng-container content>
         <button mat-raised-button color="primary" class="new-absence-button" (click)="openCreateAbsenceDialog()">New Absence</button>
 
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-index" matSort #compTbSort="matSort">
-            <ng-container matColumnDef="absenceType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Absence Type</th>
-                <td mat-cell *matCellDef="let element">
-                    {{absenceService.getAbsenceTypeName(element.absenceType)}}
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
-                <td mat-cell *matCellDef="let element">{{element.startDate | date: 'dd-MMM-yyyy'}}</td>
-            </ng-container>
-            <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
-                <td mat-cell *matCellDef="let element">{{element.endDate | date: 'dd-MMM-yyyy'}}</td>
-            </ng-container>
-            <ng-container matColumnDef="durationInDays">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Days</th>
-                <td mat-cell *matCellDef="let element">{{element.durationInDays}}</td>
-            </ng-container>
-            <ng-container style="max-height: 2rem;" matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
-                <td mat-cell *matCellDef="let element">{{element.description}}</td>
-            </ng-container>
-            <ng-container matColumnDef="absenceStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-                <td mat-cell  *matCellDef="let element">
-                    <div [ngClass]="absenceService.absenceStatusStyle(element.absenceStatus)">
-                        {{absenceService.getAbsenceStatusName(element.absenceStatus)}}
-                    </div>
-                </td>
-            </ng-container>
-
-            <ng-container  matColumnDef="actions">
-                <th mat-header-cell style="text-align: center" *matHeaderCellDef>Actions</th> 
-                <td mat-cell *matCellDef="let element; let i = index" class="detail-cell">
-                <button mat-raised-button [ngClass]="editButtonStyle(element.absenceStatus)" color="primary" 
-                        (click)="openEditAbsenceDialog(i)"
-                        [disabled]="isEditAndDeleteButtonDisabled(element.absenceStatus)">
-                    Edit
-                </button>
-                <button mat-raised-button color="warn" 
-                        (click)="delete(element.id)"
-                        [disabled]="isEditAndDeleteButtonDisabled(element.absenceStatus)">
-                    Delete
-                </button>
-
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
-        </table>
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-index" matSort #compTbSort="matSort">
+                <ng-container matColumnDef="absenceType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Absence Type</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{absenceService.getAbsenceTypeName(element.absenceType)}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+                    <td mat-cell *matCellDef="let element">{{element.startDate | date: 'dd-MMM-yyyy'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="endDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
+                    <td mat-cell *matCellDef="let element">{{element.endDate | date: 'dd-MMM-yyyy'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="durationInDays">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Days</th>
+                    <td mat-cell *matCellDef="let element">{{element.durationInDays}}</td>
+                </ng-container>
+                <ng-container style="max-height: 2rem;" matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Description</th>
+                    <td mat-cell *matCellDef="let element">{{element.description}}</td>
+                </ng-container>
+                <ng-container matColumnDef="absenceStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell  *matCellDef="let element">
+                        <div [ngClass]="absenceService.absenceStatusStyle(element.absenceStatus)">
+                            {{absenceService.getAbsenceStatusName(element.absenceStatus)}}
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container  matColumnDef="actions">
+                    <th mat-header-cell style="text-align: center" *matHeaderCellDef>Actions</th> 
+                    <td mat-cell *matCellDef="let element; let i = index" class="detail-cell">
+                    <button mat-raised-button [ngClass]="editButtonStyle(element.absenceStatus)" color="primary" 
+                            (click)="openEditAbsenceDialog(i)"
+                            [disabled]="isEditAndDeleteButtonDisabled(element.absenceStatus)">
+                        Edit
+                    </button>
+                    <button mat-raised-button color="warn" 
+                            (click)="delete(element.id)"
+                            [disabled]="isEditAndDeleteButtonDisabled(element.absenceStatus)">
+                        Delete
+                    </button>
+    
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+            </table>
+        </div>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
             [length]="totalAmountOfRecords" [pageSize]="pageSize" (page)="updatePagination($event)" class="mat-elevation-z8">

@@ -1,58 +1,60 @@
 <h3>Company Absences</h3>
 
     <ng-container content>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-index" matSort #compTbSort="matSort">
-            <ng-container matColumnDef="employeeName">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee</th>
-                <td mat-cell *matCellDef="let element">{{element.employeeName}}</td>
-            </ng-container>
-            <ng-container matColumnDef="absenceType">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Absence Type</th>
-                <td mat-cell *matCellDef="let element">
-                    {{absenceService.getAbsenceTypeName(element.absenceType)}}
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="startDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
-                <td mat-cell *matCellDef="let element">{{element.startDate | date: 'dd-MMM-yyyy'}}</td>
-            </ng-container>
-            <ng-container matColumnDef="endDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
-                <td mat-cell *matCellDef="let element">{{element.endDate | date: 'dd-MMM-yyyy'}}</td>
-            </ng-container>
-            <ng-container matColumnDef="durationInDays">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Days</th>
-                <td mat-cell *matCellDef="let element">{{element.durationInDays}}</td>
-            </ng-container>
-            <ng-container matColumnDef="absenceStatus">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-                <td mat-cell  *matCellDef="let element">
-                    <div [ngClass]="absenceService.absenceStatusStyle(element.absenceStatus)">
-                        {{absenceService.getAbsenceStatusName(element.absenceStatus)}}
-                    </div>
-                </td>
-            </ng-container>
-
-            <ng-container  matColumnDef="actions">
-                <th mat-header-cell style="text-align: center; width: 25%" *matHeaderCellDef>Actions</th> 
-                <td mat-cell *matCellDef="let element; let i = index" class="detail-cell">
-                <button mat-raised-button class="details-button" (click)="openDialog(i)">Details</button>
-                <button mat-raised-button [ngClass]="approveButtonStyle(element.absenceStatus)" color="primary" 
-                        (click)="approveRequest(element.id)"
-                        [disabled]="isApprovedAndDenyButtonDisabled(element.absenceStatus)">
-                    Approve
-                </button>
-                <button mat-raised-button color="warn" 
-                        (click)="denyRequest(element.id)"
-                        [disabled]="isApprovedAndDenyButtonDisabled(element.absenceStatus)">
-                    Deny
-                </button>
-
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-            <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
-        </table>
+        <div class="table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-index" matSort #compTbSort="matSort">
+                <ng-container matColumnDef="employeeName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Employee</th>
+                    <td mat-cell *matCellDef="let element">{{element.employeeName}}</td>
+                </ng-container>
+                <ng-container matColumnDef="absenceType">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Absence Type</th>
+                    <td mat-cell *matCellDef="let element">
+                        {{absenceService.getAbsenceTypeName(element.absenceType)}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+                    <td mat-cell *matCellDef="let element">{{element.startDate | date: 'dd-MMM-yyyy'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="endDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>End Date</th>
+                    <td mat-cell *matCellDef="let element">{{element.endDate | date: 'dd-MMM-yyyy'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="durationInDays">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Total Days</th>
+                    <td mat-cell *matCellDef="let element">{{element.durationInDays}}</td>
+                </ng-container>
+                <ng-container matColumnDef="absenceStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                    <td mat-cell  *matCellDef="let element">
+                        <div [ngClass]="absenceService.absenceStatusStyle(element.absenceStatus)">
+                            {{absenceService.getAbsenceStatusName(element.absenceStatus)}}
+                        </div>
+                    </td>
+                </ng-container>
+    
+                <ng-container  matColumnDef="actions">
+                    <th mat-header-cell style="text-align: center; width: 25%" *matHeaderCellDef>Actions</th> 
+                    <td mat-cell *matCellDef="let element; let i = index" class="detail-cell">
+                    <button mat-raised-button class="details-button" (click)="openDialog(i)">Details</button>
+                    <button mat-raised-button [ngClass]="approveButtonStyle(element.absenceStatus)" color="primary" 
+                            (click)="approveRequest(element.id)"
+                            [disabled]="isApprovedAndDenyButtonDisabled(element.absenceStatus)">
+                        Approve
+                    </button>
+                    <button mat-raised-button color="warn" 
+                            (click)="denyRequest(element.id)"
+                            [disabled]="isApprovedAndDenyButtonDisabled(element.absenceStatus)">
+                        Deny
+                    </button>
+    
+                </ng-container>
+    
+                <tr mat-header-row *matHeaderRowDef="columnsToDisplay; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+            </table>
+        </div>
 
         <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons
             [length]="totalAmountOfRecords" [pageSize]="pageSize" (page)="updatePagination($event)" class="mat-elevation-z8">
