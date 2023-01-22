@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortable } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 import { AbsenceDTO, AbsenceStatus, AbsenceType } from '../absence.model';
 import { AbsenceService } from '../absence.service';
 import { CreateAbsenceComponent } from '../create-absence/create-absence.component';
@@ -72,9 +73,26 @@ export class IndexAbsencesComponent implements OnInit {
   }
 
   delete(id: number): void {
-    this.absenceService.delete(id).subscribe(() => {
-      this.loadData();
-    });
+    Swal.fire({
+      title: 'Are you want to Delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if(result.value) {
+        this.absenceService.delete(id).subscribe(() => {
+          Swal.fire(
+            'Deleted!',
+            'Absence request has been deleted.',
+            'success'
+          )
+          this.loadData();
+        });
+      } else if(result.dismiss === Swal.DismissReason.cancel) {
+        this.loadData();
+      }
+    })
   }
 
   editButtonStyle(absenceStatus: AbsenceStatus) {

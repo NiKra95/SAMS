@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 import { AbsenceCreationDTO, AbsenceStatus, AbsenceType } from '../absence.model';
 import { AbsenceService } from '../absence.service';
 
@@ -48,7 +49,9 @@ export class CreateAbsenceComponent implements OnInit {
     this.model.employeeId = this.securityService.getUserID();
     this.model.durationInDays = this.getWorkingDayCount(this.model.startDate, this.model.endDate);
     this.absenceService.create(this.model).subscribe(() => {
-      this.dialogRef.close(true);
+      Swal.fire('Success', 'You have successfully sent a request for absence.', 'success').then(() => {
+        this.dialogRef.close(true);
+      });
     });
   }
 

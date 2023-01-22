@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 import { CompanyAdminDTO} from '../../users.model';
 import { UsersService } from '../../users.service';
 import { CompanyAdminDetailsComponent } from '../company-admin-details/company-admin-details.component';
@@ -77,9 +78,26 @@ export class IndexCompanyAdminsComponent implements OnInit {
   }
 
   delete(id: string): void {
-    this.usersService.deleteCompanyAdmin(id).subscribe(() => {
-      this.loadData();
-    });
+    Swal.fire({
+      title: 'Are you want to Delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if(result.value) {
+        this.usersService.deleteCompanyAdmin(id).subscribe(() => {
+          Swal.fire(
+            'Deleted!',
+            'Company Admin has been deleted.',
+            'success'
+          )
+          this.loadData();
+        });
+      } else if(result.dismiss === Swal.DismissReason.cancel) {
+        this.loadData();
+      }
+    })
   }
 
 }

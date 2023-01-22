@@ -8,6 +8,7 @@ import { UsersService } from '../../users.service';
 import {MatDialog} from '@angular/material/dialog';
 import { AppAdminDetailsComponent } from '../app-admin-details/app-admin-details.component';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-index-application-admins',
@@ -63,8 +64,26 @@ export class IndexApplicationAdminsComponent implements OnInit {
   }
 
   delete(id: string): void {
-    this.usersService.deleteApplicationAdmin(id).subscribe(() => {
-      this.loadData();
-    });
+    Swal.fire({
+      title: 'Are you want to Delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if(result.value) {
+        this.usersService.deleteApplicationAdmin(id).subscribe(() => {
+          Swal.fire(
+            'Deleted!',
+            'Application Admin has been deleted.',
+            'success'
+          )
+          this.loadData();
+        });
+      } else if(result.dismiss === Swal.DismissReason.cancel) {
+        // Swal.fire('Cancelled', '' ,'error');
+        this.loadData();
+      }
+    })
   }
 }

@@ -3,6 +3,7 @@ import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 import { AbsenceCreationDTO, AbsenceDTO, AbsenceStatus, AbsenceType } from '../absence.model';
 import { AbsenceService } from '../absence.service';
 
@@ -49,7 +50,9 @@ export class EditAbsenceComponent implements OnInit {
     this.model.employeeId = this.securityService.getUserID();
     this.model.durationInDays = this.getWorkingDayCount(this.model.startDate, this.model.endDate);
     this.absenceService.edit(this.data.id, this.model).subscribe(() => {
-      this.dialogRef.close(true);
+      Swal.fire('Success', 'Absence data has changed.', 'success').then(() => {
+        this.dialogRef.close(true);
+      });
     });
   }
 
@@ -72,7 +75,8 @@ export class EditAbsenceComponent implements OnInit {
   getWorkingDayCount(startDate, endDate)
   {
     let count = 0;
-    const curDate = new Date(startDate.getTime());
+    const curDate = new Date(startDate);
+    endDate = new Date(endDate);
     while (curDate <= endDate) {
         const dayOfWeek = curDate.getDay();
         if(dayOfWeek !== 0 && dayOfWeek !== 6) count++;

@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 import { GenderType, UserDetailsDTO } from '../../users.model';
 import { UsersService } from '../../users.service';
 
@@ -46,8 +47,10 @@ export class EditUserDetailsComponent implements OnInit {
     }
   
     saveChanges() {
-      this.usersService.editUserDetails(this.data.id, this.formData.value).subscribe(() => {
-        this.dialogRef.close(true);
+      this.usersService.editUserDetails(this.data.id, this.formData.value).subscribe(() => {  
+        Swal.fire('Success', 'Your data has been modified.', 'success').then(() => {
+            this.dialogRef.close(true);
+        });
       });
     }
   

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 import { CompanyAdminCreationDTO } from '../../users.model';
 import { UsersService } from '../../users.service';
 
@@ -21,7 +22,9 @@ export class CreateCompanyAdminComponent implements OnInit {
   saveChanges(companyAdminCreationDTO: CompanyAdminCreationDTO){
     companyAdminCreationDTO.companyId = parseInt(this.securityService.getCompanyID());
     this.usersService.createCompanyAdmin(companyAdminCreationDTO).subscribe(() => {
-      this.router.navigate(['/company-admins']);
+      Swal.fire('Success', 'The new Company Admin has been added.', 'success').then(() => {
+        this.router.navigate(['/company-admins']);
+      });
     });
   }
 

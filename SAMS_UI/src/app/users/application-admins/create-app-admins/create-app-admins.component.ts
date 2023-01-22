@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { ApplicationAdminCreationDTO } from '../../users.model';
 import { UsersService } from '../../users.service';
 
@@ -18,7 +19,9 @@ export class CreateAppAdminsComponent implements OnInit {
 
   saveChanges(appAdminCreationDTO: ApplicationAdminCreationDTO){
     this.usersService.createApplicationAdmin(appAdminCreationDTO).subscribe(() => {
-      this.router.navigate(['/application-admins']);
+      Swal.fire('Success', 'The new Application Admin has been added.', 'success').then(() => {
+        this.router.navigate(['/application-admins']);
+      });
     });
   }
 

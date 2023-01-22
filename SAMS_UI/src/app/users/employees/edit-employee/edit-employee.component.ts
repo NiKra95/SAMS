@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import Swal from 'sweetalert2';
 import { EmployeeDTO, EmployeeEditDTO, GenderType } from '../../users.model';
 import { UsersService } from '../../users.service';
 
@@ -37,8 +38,11 @@ export class EditEmployeeComponent implements OnInit {
 
   saveChanges() {
     this.usersService.editEmployeeSettings(this.data.id, this.formData.value).subscribe(() => {
-      this.dialogRef.close(true);
+      Swal.fire('Success', 'Employee data has changed.', 'success').then(() => {
+        this.dialogRef.close(true);
+      });
     });
+    
   }
 
   close() {

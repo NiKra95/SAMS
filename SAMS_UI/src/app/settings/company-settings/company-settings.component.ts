@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CompanySettingsDTO } from 'src/app/companies/company.model';
 import { CompanyService } from 'src/app/companies/company.service';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 import { SettingsService } from '../settings.service';
 
 @Component({
@@ -29,9 +30,26 @@ export class CompanySettingsComponent implements OnInit {
   }
 
   resetCompanySettings(companySettings: CompanySettingsDTO) {
-    companySettings.companyId = parseInt(this.securityService.getCompanyID());
-    this.companyService.resetSettings(companySettings).subscribe(() => {
-    });
+    Swal.fire({
+      title: 'Do you want to reset?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if(result.value) {
+        companySettings.companyId = parseInt(this.securityService.getCompanyID());
+          this.companyService.resetSettings(companySettings).subscribe(() => {
+            Swal.fire(
+              'Resetting successfully',
+              'Company settings have been reset.',
+              'success'
+            ).then(() => {
+              this.router.navigate(['/dashboard']);  
+            })
+          });
+      } else if(result.dismiss === Swal.DismissReason.cancel) {}
+    })
   }
 
 }

@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { SecurityService } from 'src/app/security/security.service';
+import Swal from 'sweetalert2';
 import { EmployeeDTO } from '../../users.model';
 import { UsersService } from '../../users.service';
 import { EditEmployeeComponent } from '../edit-employee/edit-employee.component';
@@ -67,8 +68,25 @@ pageSize = 5;
   }
 
   delete(id: string): void {
-    this.usersService.deleteEmployee(id).subscribe(() => {
-      this.loadData();
-    });
+    Swal.fire({
+      title: 'Are you want to Delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if(result.value) {
+        this.usersService.deleteEmployee(id).subscribe(() => {
+          Swal.fire(
+            'Deleted!',
+            'Employee has been deleted.',
+            'success'
+          )
+          this.loadData();
+        });
+      } else if(result.dismiss === Swal.DismissReason.cancel) {
+        this.loadData();
+      }
+    })
   }
 }

@@ -455,6 +455,8 @@ namespace SAMS_WebAPI.Controllers
                 if (companyAdmin.ApplicationUser.Picture != null)
                     await fileStorageService.DeleteFile(companyAdmin.ApplicationUser.Picture, containerName);
                 context.Remove(companyAdmin);
+                var company = await context.Companies.Where(x => x.Id == companyAdmin.CompanyId).FirstOrDefaultAsync();
+                company!.NumberOfAdmins--;
                 await context.SaveChangesAsync();
 
                 await userManager.RemoveClaimAsync(companyAdmin.ApplicationUser, new Claim("role", "companyAdmin"));
@@ -607,6 +609,8 @@ namespace SAMS_WebAPI.Controllers
                 if (employee.ApplicationUser.Picture != null)
                     await fileStorageService.DeleteFile(employee.ApplicationUser.Picture, containerName);
                 context.Remove(employee);
+                var company = await context.Companies.Where(x => x.Id == employee.CompanyId).FirstOrDefaultAsync();
+                company!.NumberOfEmployees--;
                 await context.SaveChangesAsync();
 
                 await userManager.RemoveClaimAsync(employee.ApplicationUser, new Claim("role", "employee"));
