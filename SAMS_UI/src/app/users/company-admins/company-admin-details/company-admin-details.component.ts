@@ -26,6 +26,7 @@ export class CompanyAdminDetailsComponent implements OnInit {
     this.formData = new FormGroup({
       firstName: new FormControl(this.data.firstName),
       lastName: new FormControl(this.data.lastName),
+      address: new FormControl(this.data.address ?? "No Address"),
       email: new FormControl(this.data.email),
       gender: new FormControl(this.data.gender),
       dateOfBirth: new FormControl(this.datePipe.transform(this.data.dateofBirth, "dd-MMM-yyyy")),

@@ -23,7 +23,10 @@
                 <ng-container matColumnDef="details">
                     <th mat-header-cell *matHeaderCellDef></th> 
                     <td mat-cell *matCellDef="let element; let i = index" class="detail-cell">
-                        <button mat-raised-button (click)="openDialog(i)">Details</button>
+                        <button mat-raised-button class="details-button" (click)="openDialog(i)">Details</button>
+                        <button mat-raised-button (click)="delete(element.id)" color="warn">
+                            Delete
+                        </button>
                 </ng-container>
     
                 <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>

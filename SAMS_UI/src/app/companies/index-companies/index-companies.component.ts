@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CompanyDTO } from '../company.model';
 import { CompanyService } from '../company.service';
 import { CompanyDetailsComponent } from '../company-details/company-details.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-index-companies',
@@ -50,6 +51,29 @@ export class IndexCompaniesComponent implements OnInit {
       width: '25%',
       data: this.dataSource.data[index],
     });
+  }
+
+  delete(companyId: string): void {
+    Swal.fire({
+      title: 'Are you want to Delete?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if(result.value) {
+        this.companyService.delete(parseInt(companyId)).subscribe(() => {
+          Swal.fire(
+            'Deleted!',
+            'Company has been deleted.',
+            'success'
+          )
+          this.loadData();
+        });
+      } else if(result.dismiss === Swal.DismissReason.cancel) {
+        this.loadData();
+      }
+    })
   }
 
 }

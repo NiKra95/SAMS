@@ -29,6 +29,10 @@ export class CompanyService {
     return this.http.post<number>(this.apiURL, formData);
   }
 
+  delete(companyId: number):Observable<any> {
+    return this.http.delete(`${this.apiURL}/deleteCompany/${companyId}`);
+  }
+
   resetSettings(companySettingsDTO: CompanySettingsDTO):Observable<any> {
     const formData: FormData = this.BuildCompanySettingsFormData(companySettingsDTO);
     console.log(Array.from(formData));
