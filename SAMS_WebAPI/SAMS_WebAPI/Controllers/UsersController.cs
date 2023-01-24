@@ -180,7 +180,6 @@ namespace SAMS_WebAPI.Controllers
         }
 
         [HttpGet("getApplicationAdmin/{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsApplicationAdmin")]
         public async Task<ActionResult<ApplicationAdminDTO>> GetApplicationAdminById(string id)
         {
             try
@@ -196,7 +195,6 @@ namespace SAMS_WebAPI.Controllers
         }
 
         [HttpPost("createApplicationAdmin")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsApplicationAdmin")]
         public async Task<ActionResult> CreateApplicationAdmin([FromForm] ApplicationAdminCreationDTO appAdminCreationDTO)
         {
             try
@@ -228,43 +226,7 @@ namespace SAMS_WebAPI.Controllers
             }
         }
 
-        //[HttpPut("editApplicationAdmin/{id}")]
-        ////[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsApplicationAdmin")]
-        //public async Task<ActionResult> EditApplicationAdmin(string id,
-        //    [FromForm] ApplicationAdminCreationDTO applicationAdminCreationDTO)
-        //{
-        //    try
-        //    {
-        //        var user = await userManager.FindByIdAsync(id);
-        //        var currentPicturePath = user.Picture;
-
-        //        if (user == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        user = mapper.Map(applicationAdminCreationDTO, user);
-
-        //        if (applicationAdminCreationDTO.Picture != null)
-        //        {
-        //            user.Picture = await fileStorageService.EditFile(containerName, applicationAdminCreationDTO.Picture, user.Picture);
-        //        }
-        //        else
-        //        {
-        //            user.Picture = currentPicturePath;
-        //        }
-
-        //        await context.SaveChangesAsync();
-        //        return NoContent();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
-
         [HttpDelete("deleteApplicationAdmin/{id}")]
-        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Policy = "IsApplicationAdmin")]
         public async Task<ActionResult> DeleteApplicationAdmin(string id)
         {
             try
@@ -402,40 +364,6 @@ namespace SAMS_WebAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-        //[HttpPut("editCompanyAdmin/{id}")]
-        //public async Task<ActionResult> EditCompanyAdmin(string id,
-        //    [FromForm] CompanyAdminEditDTO companyAdminEditDTO)
-        //{
-        //    try
-        //    {
-        //        var user = await userManager.FindByIdAsync(id);
-        //        var currentPicturePath = user.Picture;
-
-        //        if (user == null)
-        //        {
-        //            return NotFound();
-        //        }
-
-        //        user = mapper.Map(companyAdminEditDTO, user);
-
-        //        if (companyAdminEditDTO.Picture != null)
-        //        {
-        //            user.Picture = await fileStorageService.EditFile(containerName, companyAdminEditDTO.Picture, user.Picture);
-        //        }
-        //        else
-        //        {
-        //            user.Picture = currentPicturePath;
-        //        }
-
-        //        await context.SaveChangesAsync();
-        //        return NoContent();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
 
         [HttpDelete("deleteCompanyAdmin/{id}")]
         public async Task<ActionResult> DeleteCompanyAdmin(string id)
