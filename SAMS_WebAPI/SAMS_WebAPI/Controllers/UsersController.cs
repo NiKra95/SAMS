@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SAMS_WebAPI.DTOs;
 using SAMS_WebAPI.Entities;
+using SAMS_WebAPI.Extenstions;
 using SAMS_WebAPI.Helpers;
 using System.Security.Claims;
 

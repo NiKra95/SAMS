@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SAMS_WebAPI.DTOs;
 using SAMS_WebAPI.Entities;
-using SAMS_WebAPI.Helpers;
+using SAMS_WebAPI.Extenstions;
 
 namespace SAMS_WebAPI.Controllers
 {

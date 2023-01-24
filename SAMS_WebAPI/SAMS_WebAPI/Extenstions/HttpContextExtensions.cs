@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace SAMS_WebAPI.Helpers
+namespace SAMS_WebAPI.Extenstions
 {
     public static class HttpContextExtensions
     {

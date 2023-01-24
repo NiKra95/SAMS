@@ -1,6 +1,6 @@
 ﻿using SAMS_WebAPI.DTOs;
 
-namespace SAMS_WebAPI.Helpers
+namespace SAMS_WebAPI.Extenstions
 {
     public static class IQueryableExtensions
     {
